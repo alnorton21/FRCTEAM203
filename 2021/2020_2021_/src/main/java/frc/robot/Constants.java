@@ -24,4 +24,11 @@ public static class DriveConstants {
     public static int krightBack = 3;
  }
 
+    public static int flywheelO = 5;
+    public static int flywheelT = 6;
+    public static int accumulator = 7; //the big thing with wheeks and plates
+    public static int intake = 8; //the inner bit with the orange bands
+    public static int turret = 9; //the bit that rotates the flywheel
+
+
 }
