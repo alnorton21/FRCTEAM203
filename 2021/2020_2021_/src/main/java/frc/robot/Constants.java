@@ -7,29 +7,61 @@
 
 package frc.robot;
 
+import com.revrobotics.ColorMatch;
+
+import edu.wpi.first.wpilibj.util.Color;
+
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. public static).  Do not put anything functional in this class.
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean constants. This class should not be used for any other
+ * purpose. All constants should be declared globally (i.e. public static). Do
+ * not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
 
-public static class DriveConstants {
-    public static int kleftFront = 2;
-    public static int kleftBack = 4;
-    public static int krightFront = 1;
-    public static int krightBack = 3;
-    public static int testcode = 639; //This is a Test
- }
+    public static int kaccumulator = 8;
+    public static int khood = 30;
 
-    public static int flywheelO = 5;
-    public static int flywheelT = 6;
-    public static int accumulator = 7; //the big thing with wheeks and plates
-    public static int intake = 8; //the inner bit with the orange bands
-    public static int turret = 9; //the bit that rotates the flywheel
+    public static int kIndexer = 9;
 
+    public static class DriveConstants {
+        public static int kleftFront = 4;
+        public static int kleftBack = 2; //1
+        public static int krightFront = 1;
+        public static int krightBack = 3;
+ 
+    }
+
+    public static class FlywheelConstants {
+        public static int kflywheelOne = 6;
+        public static int kflywheelTwo = 7;
+    }
+
+    public static class ColorWheelConstants {
+        public static int kcolorWheel = 30;
+        
+        public static Color kblueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
+        public static Color kgreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
+        public static Color kredTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
+        public static Color kyellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+
+        public static ColorMatch colorMatcher = new ColorMatch();
+
+
+    }
+
+    public static class TurretConstants {
+        public static int kturretOne = 5;
+        //public static int kturretTwo = 40;
+    }
+
+    //public static class ShooterConstants {
+     //   public static int kShooterOne = 8;
+     //   public static int kShooterTwo = 9;
+    //}
 
 }

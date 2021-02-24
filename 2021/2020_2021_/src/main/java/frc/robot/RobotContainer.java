@@ -5,16 +5,35 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+//TEST COMMIT
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ComplexAuto;
+import frc.robot.commands.FINALSimpleShootAuto;
+import frc.robot.commands.SimpleShootAuto;
+import frc.robot.subsystems.BeaverTailSubsystem;
+import frc.robot.subsystems.ColorWheelPID;
+import frc.robot.subsystems.ColorWheelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.FlywheelSubsystem;
+import frc.robot.subsystems.HoodPID;
+import frc.robot.subsystems.HoodSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.PlexiSubsystem;
+import frc.robot.subsystems.TurretPID;
+import frc.robot.subsystems.TurretSubsystem;
+import frc.robot.commands.RevUpFlywheel;
+import frc.robot.subsystems.VisionTrackingSubsystem;
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -23,12 +42,46 @@ import frc.robot.subsystems.DriveSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  
+public boolean Pidturretenabled = false;
 
-  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-
+  private final DriveSubsystem  m_driveCommand = new DriveSubsystem();
   private final XboxController m_driverController = new XboxController(0);
+  private final XboxController m_operatorController = new XboxController(1);
+  private final FlywheelSubsystem m_flywheelSubsystem = new FlywheelSubsystem();
+  private final TurretSubsystem m_turretSubsystem = new TurretSubsystem();
+  public final VisionTrackingSubsystem m_visionTrackingSubsystem = new VisionTrackingSubsystem();
+  private final ColorWheelSubsystem m_colorWheelSubsysytem = new ColorWheelSubsystem();
+  public final ColorWheelPID m_colorWheelPID = new ColorWheelPID();
+  public final TurretPID m_turretPID = new TurretPID();
+  public final PlexiSubsystem m_plexiSubsystem = new PlexiSubsystem();
+  //public final HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
+  public final BeaverTailSubsystem m_beaverTailSubsystem = new BeaverTailSubsystem();
+  public final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
+  public final HoodPID m_hoodPID = new HoodPID();
+
+  
+  //A simple auto routine that drives forward a specified distance, and then stops
+  private final Command m_simpleAuto = new StartEndCommand(
+    // START - Drive forward at the start of the command
+    () -> m_driveCommand.driveCartesian(0, 0.2, 0),
+    // END - Stop driving at the end of the command
+    () -> m_driveCommand.driveCartesian(0, 0, 0),
+    // REQUIREMENTS - Requires the drive subsystem
+    m_driveCommand)
+    // Reset the drive encoders before starting
+    .beforeStarting(m_driveCommand::resetEncoders)
+    // End the command when the robot's driven distance exceeds the desired value
+    .withInterrupt(
+        () -> m_driveCommand.getEncoderOneAverage() >= 50);
+
+  //Complex Autonomous command
+  private final Command m_complexAuto = new ComplexAuto(m_driveCommand, m_flywheelSubsystem);
+  private final Command m_simpleShootAuto = new SimpleShootAuto (m_driveCommand);
+  private final Command m_revUpFlywheel = new RevUpFlywheel(m_flywheelSubsystem);
+  private final Command m_finalSimpleShootAuto = new FINALSimpleShootAuto (m_flywheelSubsystem, m_indexerSubsystem, m_plexiSubsystem, m_driveCommand);
+  //A chooser for autonomous commands
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -37,17 +90,37 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_driveSubsystem.setDefaultCommand(
-        
-      new RunCommand(() -> m_driveSubsystem.driveCartesian(m_driverController.getRawAxis(2)*-1.00 + 
-          m_driverController.getRawAxis(3)*1.00,
-          m_driverController.getY(GenericHID.Hand.kLeft)*-1.00,
-                            m_driverController.getX(GenericHID.Hand.kRight)),
-                            m_driveSubsystem)
-        );
-    
-    
+    // Manual Drive of the Robot
+    m_driveCommand.setDefaultCommand( 
+    new RunCommand(() -> m_driveCommand.driveCartesian(m_driverController.getRawAxis(2)*-1.00 + 
+                         m_driverController.getRawAxis(3)*1.00,
+                         m_driverController.getY(GenericHID.Hand.kLeft)*-1.00,
+                         m_driverController.getX(GenericHID.Hand.kRight)),
+                         m_driveCommand)
+    );
 
+    m_chooser.addOption("Simple Auto", m_simpleAuto);
+    m_chooser.addOption("Complex Auto", m_complexAuto);
+    m_chooser.addOption("Simple Shoot Auto", m_simpleShootAuto);
+    m_chooser.addOption("FINAL Simple Shoot Auto", m_finalSimpleShootAuto);
+    m_chooser.addOption("Rev Up Flywheel", m_revUpFlywheel);
+
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
+    
+  
+
+    // Shooter Turret Control
+    if(Pidturretenabled == false){
+      m_turretSubsystem.setDefaultCommand(
+    
+      new RunCommand(() -> m_turretSubsystem.turretRotateLeft(m_operatorController.getRawAxis(2)*0.5,
+                           m_operatorController.getRawAxis(3)*0.5),
+                           m_turretSubsystem)
+    );
+    }
+    else if(Pidturretenabled == true){
+
+    }
   }
 
   /**
@@ -57,16 +130,139 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-  }
+    
+  // OPERATOR BUTTONS- OPERATOR BUTTONS- OPERATOR BUTTONS- OPERATOR BUTTONS- OEPRATOR BUTTONS- OPERATOR BUTTONS- OPERATOR BUTTONS
 
+    //PLEXI BUTTONS--------------------------------------------------------------------------------------------------------
+    new JoystickButton(m_operatorController, Button.kBumperRight.value)
+    .whenPressed(() -> m_plexiSubsystem.up(1), m_plexiSubsystem)
+    .whenReleased(() -> m_plexiSubsystem.stop(), m_plexiSubsystem);
+    
+    new JoystickButton(m_operatorController, Button.kBumperLeft.value)
+    .whenPressed(() -> m_plexiSubsystem.down(1), m_plexiSubsystem)
+    .whenReleased(() -> m_plexiSubsystem.stop(), m_plexiSubsystem);
+    
+    //HOOD BUTTONS -----------------------------------------------------------------------------------------------------------
+    new JoystickButton(m_operatorController, Button.kX.value)
+    .whenPressed(() -> m_hoodPID.hoodUp(0.10), m_hoodPID)
+    .whenReleased(() -> m_hoodPID.hoodStop(), m_hoodPID);
+    
+    new JoystickButton(m_operatorController, Button.kY.value)
+    .whenPressed(() -> m_hoodPID.hoodDown(0.10), m_hoodPID)
+    .whenReleased(() -> m_hoodPID.hoodStop(), m_hoodPID);
+ 
+    /* 
+    new POVButton(m_operatorController,0,0)
+    .whenPressed(() -> m_hoodSubsystem.hoodUp(0.10), m_hoodSubsystem)
+    .whenReleased(() -> m_hoodSubsystem.hoodStop(), m_hoodSubsystem);
+    
+    new POVButton(m_operatorController,180,180)
+    .whenPressed(() -> m_hoodSubsystem.hoodDown(0.10), m_hoodSubsystem)
+    .whenReleased(() -> m_hoodSubsystem.hoodStop(), m_hoodSubsystem);
+    */
+
+    //COLOR WHEEL BUTTONS ----------------------------------------------------------------------------------------------------------------
+    new JoystickButton(m_operatorController, Button.kStart.value)
+    .whenPressed(() -> m_hoodPID.resetEncoderValue(), m_hoodPID);
+    
+    new JoystickButton(m_operatorController, Button.kBack.value)
+    .whenPressed(new InstantCommand(m_hoodPID::enable, m_hoodPID));
+    
+    //SHOOTER (MANUAL) BUTTONS--------------------------------------------------------------------------------------------------------------
+    new JoystickButton(m_operatorController, Button.kB.value)
+    .whenPressed(() -> m_flywheelSubsystem.forwardFlywheel(0.9), m_flywheelSubsystem)
+    .whenReleased(() -> m_flywheelSubsystem.forwardFlywheel(0), m_flywheelSubsystem);
+    //------------------------------------------------------------------------------------------------------------------------------
+    //SHOOTER (PID) BUTTONS--------------------------------------------------------------------------------------------------------------
+    new JoystickButton(m_operatorController, Button.kA.value)
+    .whenPressed(() -> m_turretSubsystem.turretRotate(), m_turretSubsystem);
+    /*
+    .whenPressed(new InstantCommand(m_turretPID::enable, m_turretPID))
+    .whenPressed(() -> Pidturretenabled = true);
+    */
+
+    new JoystickButton(m_driverController, Button.kStart.value)
+    .whenPressed(new InstantCommand(m_hoodPID::disable, m_hoodPID))
+    .whenPressed(new InstantCommand(m_turretPID::disable, m_turretPID))
+    .whenPressed(() -> Pidturretenabled = false);
+    
+    //------------------------------------------------------------------------------------------------------------------------------
+    
+    
+    // DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS
+    
+    //BEAVER BUTTONS---------------------------------------------------------------------------------------------------------------
+    new JoystickButton(m_driverController, Button.kX.value)
+    .whenPressed(() -> m_beaverTailSubsystem.beaverBoward(0.8), m_beaverTailSubsystem)
+    .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
+    
+    new JoystickButton(m_driverController, Button.kY.value)
+    .whenPressed(() -> m_beaverTailSubsystem.beaverBackward(0.8), m_beaverTailSubsystem)
+    .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
+    
+    new JoystickButton(m_driverController, Button.kBumperLeft.value)
+    .whenPressed(() -> m_beaverTailSubsystem.beaverBackward(0.8), m_beaverTailSubsystem)
+    .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
+    
+
+    //INDEXER BUTTONS-------------------------------------------------------------------------------------------------------------------
+    new JoystickButton(m_driverController, Button.kB.value)
+    .whenPressed(() -> m_indexerSubsystem.indexerForward(0.8), m_indexerSubsystem)
+    .whenReleased(() -> m_indexerSubsystem.indexerStop(), m_indexerSubsystem);
+    
+    new JoystickButton(m_driverController, Button.kBumperRight.value)
+    .whenPressed(() -> m_indexerSubsystem.indexerForward(0.8), m_indexerSubsystem)
+    .whenReleased(() -> m_indexerSubsystem.indexerStop(), m_indexerSubsystem);    
+
+    new JoystickButton(m_driverController, Button.kA.value)
+    .whenPressed(() -> m_indexerSubsystem.indexerBackward(0.8), m_indexerSubsystem)
+    .whenReleased(() -> m_indexerSubsystem.indexerStop(), m_indexerSubsystem);
+    
+    new JoystickButton(m_driverController, Button.kBack.value)
+    .whenPressed(() -> m_visionTrackingSubsystem.changeVisionState(), m_visionTrackingSubsystem);
+
+
+/*  //COLOR BUTTONS-------------------------------------------------------------------------------------------------------------------------
+  new JoystickButton(m_operatorController, Button.kY.value)
+  .whenPressed(() -> m_colorWheelSubsysytem.GoYellow());
+  
+  new JoystickButton(m_operatorController, Button.kB.value)
+  .whenPressed(() -> m_colorWheelSubsysytem.GoRed());
+  
+  new JoystickButton(m_operatorController, Button.kA.value)
+  .whenPressed(() -> m_colorWheelSubsysytem.GoGreen());
+  
+  new JoystickButton(m_operatorController, Button.kX.value)
+  .whenPressed(() -> m_colorWheelSubsysytem.GoBlue());
+
+*/
+
+    /*
+    new JoystickButton(m_driverController, Button.kY.value)
+    .whenPressed(new InstantCommand(m_colorWheelPID::disable, m_colorWheelPID))
+    .whenPressed(() -> m_colorWheelPID.resetEncoder(), m_colorWheelPID)
+    //.whenPressed(() -> m_colorWheelPID.resetPIDValues(), m_colorWheelPID)
+    .whenReleased(() -> m_colorWheelPID.colorWheelStop());
+
+
+    new JoystickButton (m_driverController, Button.kB.value)
+    .whenPressed(new InstantCommand(m_colorWheelPID::disable, m_colorWheelPID))
+    .whenPressed(() -> m_colorWheelPID.colorWheelForward(1), m_colorWheelPID)
+    .whenReleased(() -> m_colorWheelPID.colorWheelStop());
+    */
+
+
+    //-------------------------------------------------------------------------------------------------------------------
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    public Command getAutonomouCommand(){
+      return m_chooser.getSelected();
+    }
   }
-}
+
