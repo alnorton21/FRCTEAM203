@@ -92,8 +92,8 @@ public boolean Pidturretenabled = false;
 
     // Manual Drive of the Robot
     m_driveCommand.setDefaultCommand( 
-    new RunCommand(() -> m_driveCommand.driveCartesian(m_driverController.getRawAxis(2)*-1.00 + 
-                         m_driverController.getRawAxis(3)*1.00,
+    new RunCommand(() -> m_driveCommand.driveCartesian(m_driverController.getRawAxis(2)*1.00 + 
+                         m_driverController.getRawAxis(3)*-1.00,
                          m_driverController.getY(GenericHID.Hand.kLeft)*-1.00,
                          m_driverController.getX(GenericHID.Hand.kRight)),
                          m_driveCommand)
@@ -169,9 +169,14 @@ public boolean Pidturretenabled = false;
     .whenPressed(new InstantCommand(m_hoodPID::enable, m_hoodPID));
     
     //SHOOTER (MANUAL) BUTTONS--------------------------------------------------------------------------------------------------------------
+    new JoystickButton(m_operatorController, Button.kA.value)
+    .whenPressed(() -> m_flywheelSubsystem.reverseFlywheel(0.9), m_flywheelSubsystem)
+    .whenReleased(() -> m_flywheelSubsystem.reverseFlywheel(0), m_flywheelSubsystem);
+
     new JoystickButton(m_operatorController, Button.kB.value)
     .whenPressed(() -> m_flywheelSubsystem.forwardFlywheel(0.9), m_flywheelSubsystem)
     .whenReleased(() -> m_flywheelSubsystem.forwardFlywheel(0), m_flywheelSubsystem);
+
     //------------------------------------------------------------------------------------------------------------------------------
     //SHOOTER (PID) BUTTONS--------------------------------------------------------------------------------------------------------------
     new JoystickButton(m_operatorController, Button.kA.value)

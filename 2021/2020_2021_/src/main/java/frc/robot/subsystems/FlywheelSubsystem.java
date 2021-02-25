@@ -20,7 +20,7 @@ public class FlywheelSubsystem extends SubsystemBase {
   public static WPI_TalonSRX flywheelTwo = new WPI_TalonSRX(FlywheelConstants.kflywheelTwo);
   
   public FlywheelSubsystem() {
-    flywheelOne.setInverted(true);
+    //flywheelOne.setInverted(true);
 
 
 
