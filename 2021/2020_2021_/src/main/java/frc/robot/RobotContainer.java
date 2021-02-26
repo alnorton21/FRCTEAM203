@@ -198,29 +198,30 @@ public boolean Pidturretenabled = false;
     
     //BEAVER BUTTONS---------------------------------------------------------------------------------------------------------------
     new JoystickButton(m_driverController, Button.kX.value)
-    .whenPressed(() -> m_beaverTailSubsystem.beaverBoward(0.8), m_beaverTailSubsystem)
+    .whenPressed(() -> m_beaverTailSubsystem.beaverBoward(1), m_beaverTailSubsystem)
     .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
     
     new JoystickButton(m_driverController, Button.kY.value)
-    .whenPressed(() -> m_beaverTailSubsystem.beaverBackward(0.8), m_beaverTailSubsystem)
+    .whenPressed(() -> m_beaverTailSubsystem.beaverBackward(1), m_beaverTailSubsystem)
     .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
     
     new JoystickButton(m_driverController, Button.kBumperLeft.value)
-    .whenPressed(() -> m_beaverTailSubsystem.beaverBackward(0.8), m_beaverTailSubsystem)
+    .whenPressed(() -> m_beaverTailSubsystem.beaverBackward(1), m_beaverTailSubsystem)
     .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
     
-
-    //INDEXER BUTTONS-------------------------------------------------------------------------------------------------------------------
-    new JoystickButton(m_driverController, Button.kB.value)
-    .whenPressed(() -> m_indexerSubsystem.indexerForward(0.8), m_indexerSubsystem)
-    .whenReleased(() -> m_indexerSubsystem.indexerStop(), m_indexerSubsystem);
-    
     new JoystickButton(m_driverController, Button.kBumperRight.value)
-    .whenPressed(() -> m_indexerSubsystem.indexerForward(0.8), m_indexerSubsystem)
+    .whenPressed(() -> m_beaverTailSubsystem.beaverBackward(1), m_beaverTailSubsystem)
+    .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
+    
+    //INDEXER BUTTONS-------------------------------------------------------------------------------------------------------------------
+
+    
+    new JoystickButton(m_operatorController, Button.kBumperRight.value)
+    .whenPressed(() -> m_indexerSubsystem.indexerForward(1), m_indexerSubsystem)  //0.8
     .whenReleased(() -> m_indexerSubsystem.indexerStop(), m_indexerSubsystem);    
 
-    new JoystickButton(m_driverController, Button.kA.value)
-    .whenPressed(() -> m_indexerSubsystem.indexerBackward(0.8), m_indexerSubsystem)
+    new JoystickButton(m_operatorController, Button.kBumperLeft.value)
+    .whenPressed(() -> m_indexerSubsystem.indexerBackward(1), m_indexerSubsystem)
     .whenReleased(() -> m_indexerSubsystem.indexerStop(), m_indexerSubsystem);
     
     new JoystickButton(m_driverController, Button.kBack.value)
