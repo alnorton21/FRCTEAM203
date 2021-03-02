@@ -30,6 +30,7 @@ import frc.robot.subsystems.HoodPID;
 import frc.robot.subsystems.HoodSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.PlexiSubsystem;
+import frc.robot.subsystems.Pnumatics;
 import frc.robot.subsystems.TurretPID;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.commands.RevUpFlywheel;
@@ -59,6 +60,7 @@ public boolean Pidturretenabled = false;
   public final BeaverTailSubsystem m_beaverTailSubsystem = new BeaverTailSubsystem();
   public final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
   public final HoodPID m_hoodPID = new HoodPID();
+  public final Pnumatics m_pnumatics = new Pnumatics();
 
   
   //A simple auto routine that drives forward a specified distance, and then stops
@@ -226,6 +228,21 @@ public boolean Pidturretenabled = false;
     
     new JoystickButton(m_driverController, Button.kBack.value)
     .whenPressed(() -> m_visionTrackingSubsystem.changeVisionState(), m_visionTrackingSubsystem);
+
+
+    //PNUMATICS BUTTONS---------------------------------------------------------------------------------------------------------------------
+
+    new JoystickButton(m_operatorController, Button.kStart.value)
+    .whenPressed(() -> m_pnumatics.enableCompressor(), m_pnumatics);
+
+    new JoystickButton(m_operatorController, Button.kBack.value)
+    .whenPressed(() -> m_pnumatics.disableCompressor(), m_pnumatics);
+
+    new JoystickButton(m_operatorController, Button.kX.value)
+    .whenPressed(() -> m_pnumatics.enableSolenoids(), m_pnumatics);
+
+    new JoystickButton(m_operatorController, Button.kY.value)
+    .whenPressed(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
 
 
 /*  //COLOR BUTTONS-------------------------------------------------------------------------------------------------------------------------
