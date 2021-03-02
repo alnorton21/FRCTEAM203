@@ -19,9 +19,9 @@ public class Pnumatics extends SubsystemBase {
    * Creates a new Piston.
    */
   
-  Compressor compressor = new Compressor(0);
-  Solenoid solenoidR = new Solenoid(1);
-  Solenoid solenoidL = new Solenoid(2);
+  Compressor compressor = new Compressor();
+  Solenoid solenoidR = new Solenoid(0);
+  Solenoid solenoidL = new Solenoid(1);
 
   public Pnumatics() {
 

@@ -45,11 +45,24 @@ else{
 }
   }
 
-  public void turretForward (double turn) {
+  public void turretRotate(double turnL, double turnR) {
+    turretOne.set(-turnL);  
+    turretOne.set(turnR);  
+    //turretTwo.set(-turn); 
+  }
+
+
+  public void turretRight(double turn) {
     turretOne.set(turn);  
     //turretTwo.set(-turn); 
   }
-  
+
+  public void turretLeft(double turn) {
+    turretOne.set(-turn);  
+    //turretTwo.set(-turn); 
+  }
+
+
   public void turretStop (){
     turretOne.set(0);
     //turretTwo.set(0);

@@ -108,9 +108,18 @@ public boolean Pidturretenabled = false;
     m_chooser.addOption("Rev Up Flywheel", m_revUpFlywheel);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
-    
   
+    
+    m_turretSubsystem.setDefaultCommand( 
+    new RunCommand(() -> m_turretSubsystem.turretRotate( 
+                         m_driverController.getRawAxis(3),
+                         m_driverController.getRawAxis(2)),
+                         m_turretSubsystem)
+    );
 
+
+  
+/*
     // Shooter Turret Control
     if(Pidturretenabled == false){
       m_turretSubsystem.setDefaultCommand(
@@ -122,7 +131,7 @@ public boolean Pidturretenabled = false;
     }
     else if(Pidturretenabled == true){
 
-    }
+    }*/
   }
 
   /**
@@ -136,15 +145,16 @@ public boolean Pidturretenabled = false;
   // OPERATOR BUTTONS- OPERATOR BUTTONS- OPERATOR BUTTONS- OPERATOR BUTTONS- OEPRATOR BUTTONS- OPERATOR BUTTONS- OPERATOR BUTTONS
 
     //PLEXI BUTTONS--------------------------------------------------------------------------------------------------------
-    new JoystickButton(m_operatorController, Button.kBumperRight.value)
+/*    new JoystickButton(m_operatorController, Button.kBumperRight.value)
     .whenPressed(() -> m_plexiSubsystem.up(1), m_plexiSubsystem)
     .whenReleased(() -> m_plexiSubsystem.stop(), m_plexiSubsystem);
     
     new JoystickButton(m_operatorController, Button.kBumperLeft.value)
     .whenPressed(() -> m_plexiSubsystem.down(1), m_plexiSubsystem)
     .whenReleased(() -> m_plexiSubsystem.stop(), m_plexiSubsystem);
-    
+  */  
     //HOOD BUTTONS -----------------------------------------------------------------------------------------------------------
+    /*
     new JoystickButton(m_operatorController, Button.kX.value)
     .whenPressed(() -> m_hoodPID.hoodUp(0.10), m_hoodPID)
     .whenReleased(() -> m_hoodPID.hoodStop(), m_hoodPID);
@@ -152,7 +162,7 @@ public boolean Pidturretenabled = false;
     new JoystickButton(m_operatorController, Button.kY.value)
     .whenPressed(() -> m_hoodPID.hoodDown(0.10), m_hoodPID)
     .whenReleased(() -> m_hoodPID.hoodStop(), m_hoodPID);
- 
+ */
     /* 
     new POVButton(m_operatorController,0,0)
     .whenPressed(() -> m_hoodSubsystem.hoodUp(0.10), m_hoodSubsystem)
@@ -164,40 +174,46 @@ public boolean Pidturretenabled = false;
     */
 
     //COLOR WHEEL BUTTONS ----------------------------------------------------------------------------------------------------------------
+    /*
     new JoystickButton(m_operatorController, Button.kStart.value)
     .whenPressed(() -> m_hoodPID.resetEncoderValue(), m_hoodPID);
     
     new JoystickButton(m_operatorController, Button.kBack.value)
     .whenPressed(new InstantCommand(m_hoodPID::enable, m_hoodPID));
-    
+    */
     //SHOOTER (MANUAL) BUTTONS--------------------------------------------------------------------------------------------------------------
-    new JoystickButton(m_operatorController, Button.kA.value)
+    new JoystickButton(m_operatorController, Button.kB.value)
     .whenPressed(() -> m_flywheelSubsystem.reverseFlywheel(0.9), m_flywheelSubsystem)
     .whenReleased(() -> m_flywheelSubsystem.reverseFlywheel(0), m_flywheelSubsystem);
 
-    new JoystickButton(m_operatorController, Button.kB.value)
+    new JoystickButton(m_operatorController, Button.kA.value)
     .whenPressed(() -> m_flywheelSubsystem.forwardFlywheel(0.9), m_flywheelSubsystem)
     .whenReleased(() -> m_flywheelSubsystem.forwardFlywheel(0), m_flywheelSubsystem);
 
     //------------------------------------------------------------------------------------------------------------------------------
     //SHOOTER (PID) BUTTONS--------------------------------------------------------------------------------------------------------------
+    /*
     new JoystickButton(m_operatorController, Button.kA.value)
     .whenPressed(() -> m_turretSubsystem.turretRotate(), m_turretSubsystem);
     /*
     .whenPressed(new InstantCommand(m_turretPID::enable, m_turretPID))
     .whenPressed(() -> Pidturretenabled = true);
-    */
+    
 
     new JoystickButton(m_driverController, Button.kStart.value)
     .whenPressed(new InstantCommand(m_hoodPID::disable, m_hoodPID))
     .whenPressed(new InstantCommand(m_turretPID::disable, m_turretPID))
     .whenPressed(() -> Pidturretenabled = false);
-    
+    */
     //------------------------------------------------------------------------------------------------------------------------------
     
     
     // DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS- DRIVER BUTTONS
-    
+
+
+
+
+
     //BEAVER BUTTONS---------------------------------------------------------------------------------------------------------------
     new JoystickButton(m_driverController, Button.kX.value)
     .whenPressed(() -> m_beaverTailSubsystem.beaverBoward(1), m_beaverTailSubsystem)
@@ -225,23 +241,23 @@ public boolean Pidturretenabled = false;
     new JoystickButton(m_operatorController, Button.kBumperLeft.value)
     .whenPressed(() -> m_indexerSubsystem.indexerBackward(1), m_indexerSubsystem)
     .whenReleased(() -> m_indexerSubsystem.indexerStop(), m_indexerSubsystem);
-    
+    /*
     new JoystickButton(m_driverController, Button.kBack.value)
     .whenPressed(() -> m_visionTrackingSubsystem.changeVisionState(), m_visionTrackingSubsystem);
-
+*/
 
     //PNUMATICS BUTTONS---------------------------------------------------------------------------------------------------------------------
 
-    new JoystickButton(m_operatorController, Button.kStart.value)
+    new JoystickButton(m_driverController, Button.kStart.value)
     .whenPressed(() -> m_pnumatics.enableCompressor(), m_pnumatics);
 
-    new JoystickButton(m_operatorController, Button.kBack.value)
+    new JoystickButton(m_driverController, Button.kBack.value)
     .whenPressed(() -> m_pnumatics.disableCompressor(), m_pnumatics);
 
-    new JoystickButton(m_operatorController, Button.kX.value)
+    new JoystickButton(m_driverController, Button.kA.value)
     .whenPressed(() -> m_pnumatics.enableSolenoids(), m_pnumatics);
 
-    new JoystickButton(m_operatorController, Button.kY.value)
+    new JoystickButton(m_driverController, Button.kB.value)
     .whenPressed(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
 
 
