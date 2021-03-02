@@ -112,8 +112,8 @@ public boolean Pidturretenabled = false;
     
     m_turretSubsystem.setDefaultCommand( 
     new RunCommand(() -> m_turretSubsystem.turretRotate( 
-                         m_driverController.getRawAxis(3),
-                         m_driverController.getRawAxis(2)),
+                         m_operatorController.getRawAxis(3)-
+                         m_operatorController.getRawAxis(2)),
                          m_turretSubsystem)
     );
 
@@ -249,16 +249,16 @@ public boolean Pidturretenabled = false;
     //PNUMATICS BUTTONS---------------------------------------------------------------------------------------------------------------------
 
     new JoystickButton(m_driverController, Button.kStart.value)
-    .whenPressed(() -> m_pnumatics.enableCompressor(), m_pnumatics);
+    .whenReleased(() -> m_pnumatics.enableCompressor(), m_pnumatics);
 
     new JoystickButton(m_driverController, Button.kBack.value)
-    .whenPressed(() -> m_pnumatics.disableCompressor(), m_pnumatics);
+    .whenReleased(() -> m_pnumatics.disableCompressor(), m_pnumatics);
 
     new JoystickButton(m_driverController, Button.kA.value)
-    .whenPressed(() -> m_pnumatics.enableSolenoids(), m_pnumatics);
+    .whenReleased(() -> m_pnumatics.enableSolenoids(), m_pnumatics);
 
     new JoystickButton(m_driverController, Button.kB.value)
-    .whenPressed(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
+    .whenReleased(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
 
 
 /*  //COLOR BUTTONS-------------------------------------------------------------------------------------------------------------------------

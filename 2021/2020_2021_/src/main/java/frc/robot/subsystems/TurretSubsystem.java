@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,7 +22,7 @@ public class TurretSubsystem extends SubsystemBase {
 
  private VisionTrackingSubsystem vturret = new VisionTrackingSubsystem();
 
-  public static WPI_TalonSRX turretOne = new WPI_TalonSRX(TurretConstants.kturretOne);
+  public static VictorSPX turretOne = new VictorSPX(TurretConstants.kturretOne);
   //public static WPI_VictorSPX turretTwo = new WPI_VictorSPX(TurretConstants.kturretTwo);
  
 
@@ -28,14 +30,14 @@ public class TurretSubsystem extends SubsystemBase {
   public TurretSubsystem() {
 
   }
-
+/*
   public void turretRotate(){
 
     turretOne.set(-vturret.light.getTX()*0.1);     
 
   } 
 
-
+/*
   public void turretRotateLeft (double turn, double turnL){
 if(turnL == 0.0){
     turretOne.set(turn);
@@ -44,14 +46,13 @@ else{
     turretOne.set(-turnL);
 }
   }
+*/
+  public void turretRotate(double turn) {
+    turretOne.set(ControlMode.PercentOutput,turn);  
 
-  public void turretRotate(double turnL, double turnR) {
-    turretOne.set(-turnL);  
-    turretOne.set(turnR);  
-    //turretTwo.set(-turn); 
   }
 
-
+/*
   public void turretRight(double turn) {
     turretOne.set(turn);  
     //turretTwo.set(-turn); 
@@ -61,10 +62,10 @@ else{
     turretOne.set(-turn);  
     //turretTwo.set(-turn); 
   }
-
+*/
 
   public void turretStop (){
-    turretOne.set(0);
+    turretOne.set(ControlMode.PercentOutput, 0);
     //turretTwo.set(0);
   }
 
