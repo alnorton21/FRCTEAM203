@@ -247,7 +247,7 @@ public boolean Pidturretenabled = false;
 */
 
     //PNUMATICS BUTTONS---------------------------------------------------------------------------------------------------------------------
-
+/*
     new JoystickButton(m_driverController, Button.kStart.value)
     .whenReleased(() -> m_pnumatics.enableCompressor(), m_pnumatics);
 
@@ -259,7 +259,7 @@ public boolean Pidturretenabled = false;
 
     new JoystickButton(m_driverController, Button.kB.value)
     .whenReleased(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
-
+*/
 
 /*  //COLOR BUTTONS-------------------------------------------------------------------------------------------------------------------------
   new JoystickButton(m_operatorController, Button.kY.value)
