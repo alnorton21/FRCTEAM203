@@ -18,6 +18,8 @@ public class Pnumatics extends SubsystemBase {
   /**
    * Creates a new Piston.
    */
+
+   
   Compressor compressor;
   Solenoid solenoidR;
   Solenoid solenoidL;
@@ -44,13 +46,14 @@ public class Pnumatics extends SubsystemBase {
 
 
   public void enableCompressor(){
-    compressor.setClosedLoopControl(true);
+//    compressor.setClosedLoopControl(true);
     compressor.start();
   }
   
   public void disableCompressor(){
-    compressor.setClosedLoopControl(false);
+//    compressor.setClosedLoopControl(false);
     compressor.stop();
+  
   }
 
 
@@ -61,5 +64,6 @@ public class Pnumatics extends SubsystemBase {
     // This method will be called once per scheduler run
     System.out.println(compressor.enabled());
   }
+  
 }
 

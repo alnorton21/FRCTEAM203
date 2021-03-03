@@ -183,12 +183,16 @@ public boolean Pidturretenabled = false;
     */
     //SHOOTER (MANUAL) BUTTONS--------------------------------------------------------------------------------------------------------------
     new JoystickButton(m_operatorController, Button.kB.value)
-    .whenPressed(() -> m_flywheelSubsystem.reverseFlywheel(0.9), m_flywheelSubsystem)
+    .whenPressed(() -> m_flywheelSubsystem.reverseFlywheel(1), m_flywheelSubsystem)
     .whenReleased(() -> m_flywheelSubsystem.reverseFlywheel(0), m_flywheelSubsystem);
 
     new JoystickButton(m_operatorController, Button.kA.value)
-    .whenPressed(() -> m_flywheelSubsystem.forwardFlywheel(0.9), m_flywheelSubsystem)
+    .whenPressed(() -> m_flywheelSubsystem.forwardFlywheel(1), m_flywheelSubsystem)
     .whenReleased(() -> m_flywheelSubsystem.forwardFlywheel(0), m_flywheelSubsystem);
+    
+    new JoystickButton(m_operatorController, Button.kY.value)
+    .whenPressed(() -> m_flywheelSubsystem.reverseFlywheel(0.75), m_flywheelSubsystem)
+    .whenReleased(() -> m_flywheelSubsystem.reverseFlywheel(0), m_flywheelSubsystem);
 
     //------------------------------------------------------------------------------------------------------------------------------
     //SHOOTER (PID) BUTTONS--------------------------------------------------------------------------------------------------------------
@@ -228,7 +232,7 @@ public boolean Pidturretenabled = false;
     .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
     
     new JoystickButton(m_driverController, Button.kBumperRight.value)
-    .whenPressed(() -> m_beaverTailSubsystem.beaverBackward(1), m_beaverTailSubsystem)
+    .whenPressed(() -> m_beaverTailSubsystem.beaverBoward(1), m_beaverTailSubsystem)
     .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
     
     //INDEXER BUTTONS-------------------------------------------------------------------------------------------------------------------
@@ -247,7 +251,7 @@ public boolean Pidturretenabled = false;
 */
 
     //PNUMATICS BUTTONS---------------------------------------------------------------------------------------------------------------------
-/*
+
     new JoystickButton(m_driverController, Button.kStart.value)
     .whenReleased(() -> m_pnumatics.enableCompressor(), m_pnumatics);
 
@@ -259,7 +263,7 @@ public boolean Pidturretenabled = false;
 
     new JoystickButton(m_driverController, Button.kB.value)
     .whenReleased(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
-*/
+
 
 /*  //COLOR BUTTONS-------------------------------------------------------------------------------------------------------------------------
   new JoystickButton(m_operatorController, Button.kY.value)

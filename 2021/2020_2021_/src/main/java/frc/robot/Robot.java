@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ColorWheelPID;
 import frc.robot.subsystems.FlywheelSubsystem;
 import frc.robot.subsystems.HoodPID;
+import frc.robot.subsystems.Pnumatics;
 import frc.robot.subsystems.TurretPID;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.VisionTrackingSubsystem;
@@ -36,6 +37,8 @@ public class Robot extends TimedRobot {
   public RobotContainer m_robotContainer;
   public final ColorMatch colorMatcher = new ColorMatch();
 
+  public Pnumatics m_pnumatics;
+
   public FlywheelSubsystem m_fSubsystem = new FlywheelSubsystem();
 
   public Vision m_vision;
@@ -49,7 +52,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-  
+    m_pnumatics = new Pnumatics();
     m_vision = new Vision();
     m_robotContainer = new RobotContainer();
     ColorWheelPID.colorWheel.getSensorCollection().setQuadraturePosition(0, 10);
