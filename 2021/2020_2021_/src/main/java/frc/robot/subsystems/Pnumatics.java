@@ -22,22 +22,19 @@ public class Pnumatics extends SubsystemBase {
 
    
   Compressor compressor;
-//  Solenoid solenoidR = new Solenoid(2);
-//  Solenoid solenoidL = new Solenoid(1);
+//  Solenoid solenoidR;// = new Solenoid(2);
+//  Solenoid solenoidL;// = new Solenoid(1);
   
 
 
   public Pnumatics() {
-    //System.out.println(compressor.getCompressorNotConnectedFault());
-    
     
   compressor = new Compressor();
   
   compressor.setClosedLoopControl(true);
-  /*
-    solenoidR = new Solenoid(0);
-    solenoidL = new Solenoid(1);
-*/
+ //   solenoidR = new Solenoid(2);
+ //   solenoidL = new Solenoid(1);
+
 }
 /*
   public void enableSolenoids(){

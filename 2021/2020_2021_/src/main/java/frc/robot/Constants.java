@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.util.Color;
 public final class Constants {
 
     public static int kaccumulator = 8;
-    public static int khood = 30;
+    public static int khood = 10;
 
     public static int kIndexer = 9;
 

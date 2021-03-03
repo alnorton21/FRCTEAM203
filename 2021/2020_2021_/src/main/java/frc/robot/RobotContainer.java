@@ -61,6 +61,7 @@ public boolean Pidturretenabled = false;
   public final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
   public final HoodPID m_hoodPID = new HoodPID();
   public final Pnumatics m_pnumatics = new Pnumatics();
+  public final HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
 
   
   //A simple auto routine that drives forward a specified distance, and then stops
@@ -154,15 +155,16 @@ public boolean Pidturretenabled = false;
     .whenReleased(() -> m_plexiSubsystem.stop(), m_plexiSubsystem);
   */  
     //HOOD BUTTONS -----------------------------------------------------------------------------------------------------------
-    /*
-    new JoystickButton(m_operatorController, Button.kX.value)
-    .whenPressed(() -> m_hoodPID.hoodUp(0.10), m_hoodPID)
-    .whenReleased(() -> m_hoodPID.hoodStop(), m_hoodPID);
+    
     
     new JoystickButton(m_operatorController, Button.kY.value)
-    .whenPressed(() -> m_hoodPID.hoodDown(0.10), m_hoodPID)
-    .whenReleased(() -> m_hoodPID.hoodStop(), m_hoodPID);
- */
+    .whenPressed(() -> m_hoodSubsystem.hoodUp(0.8), m_hoodSubsystem)
+    .whenReleased(() -> m_hoodSubsystem.hoodStop(), m_hoodSubsystem);
+    
+    new JoystickButton(m_operatorController, Button.kX.value)
+    .whenPressed(() -> m_hoodSubsystem.hoodDown(0.8), m_hoodSubsystem)
+    .whenReleased(() -> m_hoodSubsystem.hoodStop(), m_hoodSubsystem);
+ 
     /* 
     new POVButton(m_operatorController,0,0)
     .whenPressed(() -> m_hoodSubsystem.hoodUp(0.10), m_hoodSubsystem)
@@ -189,7 +191,7 @@ public boolean Pidturretenabled = false;
     new JoystickButton(m_operatorController, Button.kA.value)
     .whenPressed(() -> m_flywheelSubsystem.forwardFlywheel(1), m_flywheelSubsystem)
     .whenReleased(() -> m_flywheelSubsystem.forwardFlywheel(0), m_flywheelSubsystem);
-    
+    /*
     new JoystickButton(m_operatorController, Button.kY.value)
     .whenPressed(() -> m_flywheelSubsystem.reverseFlywheel(0.75), m_flywheelSubsystem)
     .whenReleased(() -> m_flywheelSubsystem.reverseFlywheel(0), m_flywheelSubsystem);
@@ -259,11 +261,11 @@ public boolean Pidturretenabled = false;
     .whenPressed(() -> m_pnumatics.disableCompressor(), m_pnumatics);
 /*
     new JoystickButton(m_driverController, Button.kA.value)
-    .whenReleased(() -> m_pnumatics.enableSolenoids(), m_pnumatics);
+    .whenPressed(() -> m_pnumatics.enableSolenoids(), m_pnumatics);
 
     new JoystickButton(m_driverController, Button.kB.value)
-    .whenReleased(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
-*/
+    .whenPressed(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
+
 /*
 new JoystickButton(m_driverController, Button.kStart.value)
 .whenReleased(() -> m_pnumatics.enableCompressor(), m_pnumatics);
