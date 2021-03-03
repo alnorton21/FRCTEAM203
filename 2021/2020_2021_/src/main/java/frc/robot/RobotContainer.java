@@ -253,17 +253,21 @@ public boolean Pidturretenabled = false;
     //PNUMATICS BUTTONS---------------------------------------------------------------------------------------------------------------------
 
     new JoystickButton(m_driverController, Button.kStart.value)
-    .whenReleased(() -> m_pnumatics.enableCompressor(), m_pnumatics);
+    .whenPressed(() -> m_pnumatics.enableCompressor(), m_pnumatics);
 
     new JoystickButton(m_driverController, Button.kBack.value)
-    .whenReleased(() -> m_pnumatics.disableCompressor(), m_pnumatics);
-
+    .whenPressed(() -> m_pnumatics.disableCompressor(), m_pnumatics);
+/*
     new JoystickButton(m_driverController, Button.kA.value)
     .whenReleased(() -> m_pnumatics.enableSolenoids(), m_pnumatics);
 
     new JoystickButton(m_driverController, Button.kB.value)
     .whenReleased(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
-
+*/
+/*
+new JoystickButton(m_driverController, Button.kStart.value)
+.whenReleased(() -> m_pnumatics.enableCompressor(), m_pnumatics);
+*/
 
 /*  //COLOR BUTTONS-------------------------------------------------------------------------------------------------------------------------
   new JoystickButton(m_operatorController, Button.kY.value)
@@ -307,5 +311,9 @@ public boolean Pidturretenabled = false;
     public Command getAutonomouCommand(){
       return m_chooser.getSelected();
     }
+
+public GenericHID getDriverJoystick() {
+	return m_driverController;
+}
   }
 

@@ -34,10 +34,10 @@ public class Robot extends TimedRobot {
   //  public UsbCamera Cam = new UsbCamera("front", 0);
   //protected	VideoSource Cam = new VideoSource(0);
   
-  public RobotContainer m_robotContainer;
+  public static RobotContainer m_robotContainer;
   public final ColorMatch colorMatcher = new ColorMatch();
 
-  public Pnumatics m_pnumatics;
+  public static Pnumatics m_pnumatics;
 
   public FlywheelSubsystem m_fSubsystem = new FlywheelSubsystem();
 
@@ -53,6 +53,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_pnumatics = new Pnumatics();
+   
+  
     m_vision = new Vision();
     m_robotContainer = new RobotContainer();
     ColorWheelPID.colorWheel.getSensorCollection().setQuadraturePosition(0, 10);
@@ -136,6 +138,9 @@ NetworkTableInstance.getDefault().getTable(“limelight”).getEntry(“stream�
    */
   @Override
   public void teleopPeriodic() {
+
+    //System.out.println(m_pnumatics.compressorStatus());
+    
 
     SmartDashboard.putNumber("Hood Encoder Value", HoodPID.hoodMotor.getSelectedSensorPosition());
   // double horizontaloff = m_robotContainer.m_visionTrackingSubsystem.getHorizontal();

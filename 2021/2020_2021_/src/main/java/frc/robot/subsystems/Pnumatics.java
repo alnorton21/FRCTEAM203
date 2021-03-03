@@ -15,25 +15,31 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //TODO: Change the naming of one and two to front and back with motors
 
 public class Pnumatics extends SubsystemBase {
-  /**
+  
+/**
    * Creates a new Piston.
    */
 
    
   Compressor compressor;
-  Solenoid solenoidR;
-  Solenoid solenoidL;
+//  Solenoid solenoidR = new Solenoid(2);
+//  Solenoid solenoidL = new Solenoid(1);
   
 
 
   public Pnumatics() {
+    //System.out.println(compressor.getCompressorNotConnectedFault());
     
-    compressor = new Compressor();
+    
+  compressor = new Compressor();
+  
+  compressor.setClosedLoopControl(true);
+  /*
     solenoidR = new Solenoid(0);
     solenoidL = new Solenoid(1);
-
+*/
 }
-
+/*
   public void enableSolenoids(){
     solenoidR.set(true);
     solenoidL.set(true);
@@ -44,7 +50,7 @@ public class Pnumatics extends SubsystemBase {
     solenoidL.set(false);
   }
 
-
+*/
   public void enableCompressor(){
 //    compressor.setClosedLoopControl(true);
     compressor.start();
@@ -56,13 +62,18 @@ public class Pnumatics extends SubsystemBase {
   
   }
 
-
-
+  public Boolean compressorStatus(){
+    return compressorStatus();
+  }
+/*
+  public void compressorStatusPrint(){
+    System.out.println(compressorStatus());
+  }*/
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    System.out.println(compressor.enabled());
+   // System.out.println(compressor.getCompressorNotConnectedFault());
   }
   
 }
