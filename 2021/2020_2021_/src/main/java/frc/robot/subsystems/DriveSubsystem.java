@@ -77,7 +77,9 @@ public class DriveSubsystem extends SubsystemBase {
     mecanumDrive.setMaxOutput(maxOutput);
   }
 
-
+  public double getEncoderforAngle(){
+    return Math.abs(rightOneEncoder.getPosition());
+  }
   public double getEncoderOneAverage(){
     double right = -1*rightOneEncoder.getPosition();
     right = right / 5.16;
