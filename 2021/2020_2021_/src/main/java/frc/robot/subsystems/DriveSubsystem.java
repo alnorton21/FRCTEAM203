@@ -79,11 +79,23 @@ public class DriveSubsystem extends SubsystemBase {
 
 
   public double getEncoderOneAverage(){
-    return (-1*rightOneEncoder.getPosition() + leftOneEncoder.getPosition()) / 2;
+    double right = -1*rightOneEncoder.getPosition();
+    right = right / 5.16;
+
+    double left = leftOneEncoder.getPosition();
+    left = left / 5.16;
+
+    return (right + left) / 2;
   }
 
   public double getEncoderTwoAverage(){
-    return (-1*rightTwoEncoder.getPosition() + leftTwoEncoder.getPosition()) / 2;
+    double right = -1*rightTwoEncoder.getPosition();
+    right = right / 5.16;
+
+    double left = leftTwoEncoder.getPosition();
+    left = left / 5.16;
+
+    return (right + left) / 2;
   }
 
   @Override

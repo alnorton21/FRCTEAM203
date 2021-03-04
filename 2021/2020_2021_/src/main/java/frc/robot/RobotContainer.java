@@ -65,11 +65,11 @@ public boolean Pidturretenabled = false;
   public final Pnumatics m_pnumatics = new Pnumatics();
   public final HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
 
-  
+  /*
   //A simple auto routine that drives forward a specified distance, and then stops
   private final Command m_simpleAuto = new StartEndCommand(
     // START - Drive forward at the start of the command
-    () -> m_driveCommand.driveCartesian(0, 0.2, 0),
+    () -> m_driveCommand.driveCartesian(0.2, 0, 0),
     // END - Stop driving at the end of the command
     () -> m_driveCommand.driveCartesian(0, 0, 0),
     // REQUIREMENTS - Requires the drive subsystem
@@ -78,8 +78,8 @@ public boolean Pidturretenabled = false;
     .beforeStarting(m_driveCommand::resetEncoders)
     // End the command when the robot's driven distance exceeds the desired value
     .withInterrupt(
-        () -> m_driveCommand.getEncoderOneAverage() >= 50);
-
+        () -> m_driveCommand.getEncoderOneAverage() >= 10);
+  */
   //Complex Autonomous command
   private final Command m_complexAuto = new ComplexAuto(m_driveCommand, m_flywheelSubsystem);
   private final Command m_simpleShootAuto = new SimpleShootAuto (m_driveCommand);
@@ -108,7 +108,7 @@ public boolean Pidturretenabled = false;
                          m_driveCommand)
     );
 
-    m_chooser.addOption("Simple Auto", m_simpleAuto);
+    //m_chooser.addOption("Simple Auto", m_simpleAuto);
     m_chooser.addOption("Complex Auto", m_complexAuto);
     m_chooser.addOption("Simple Shoot Auto", m_simpleShootAuto);
     m_chooser.addOption("FINAL Simple Shoot Auto", m_finalSimpleShootAuto);
