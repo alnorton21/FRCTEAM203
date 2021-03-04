@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.ColorWheelPID;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FlywheelSubsystem;
 import frc.robot.subsystems.HoodPID;
 import frc.robot.subsystems.Pnumatics;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 
   //  public UsbCamera Cam = new UsbCamera("front", 0);
   //protected	VideoSource Cam = new VideoSource(0);
+  public final DriveSubsystem m_driveCommand = new DriveSubsystem();
   
   public static RobotContainer m_robotContainer;
   public final ColorMatch colorMatcher = new ColorMatch();
@@ -141,7 +143,7 @@ NetworkTableInstance.getDefault().getTable(“limelight”).getEntry(“stream�
 
     //System.out.println(m_pnumatics.compressorStatus());
     
-
+    SmartDashboard.putNumber("Drive encoder average", m_driveCommand.getEncoderOneAverage());
     SmartDashboard.putNumber("Hood Encoder Value", HoodPID.hoodMotor.getSelectedSensorPosition());
   // double horizontaloff = m_robotContainer.m_visionTrackingSubsystem.getHorizontal();
     SmartDashboard.putNumber("TurretEncoder", TurretPID.turret.getSelectedSensorPosition());

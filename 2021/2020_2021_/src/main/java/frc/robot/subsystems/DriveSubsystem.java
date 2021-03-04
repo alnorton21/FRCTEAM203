@@ -77,6 +77,7 @@ public class DriveSubsystem extends SubsystemBase {
     mecanumDrive.setMaxOutput(maxOutput);
   }
 
+
   public double getEncoderOneAverage(){
     return (-1*rightOneEncoder.getPosition() + leftOneEncoder.getPosition()) / 2;
   }
@@ -90,12 +91,12 @@ public class DriveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
     //DOESN'T WORK FOR SOME REASON
-    // SmartDashboard.putNumber("Left One Position", leftOneEncoder.getPosition());
-    // SmartDashboard.putNumber("Left Two Position", leftTwoEncoder.getPosition());
-    // SmartDashboard.putNumber("Right One Position", rightOneEncoder.getPosition());
-    // SmartDashboard.putNumber("Right Two Position", rightTwoEncoder.getPosition());
-    // SmartDashboard.putNumber("Encoder One Average", getEncoderOneAverage());
-    // SmartDashboard.putNumber("Encoder Two Average", getEncoderTwoAverage());
+     SmartDashboard.putNumber("Left One Position", leftOneEncoder.getPosition());
+     SmartDashboard.putNumber("Left Two Position", leftTwoEncoder.getPosition());
+     SmartDashboard.putNumber("Right One Position", rightOneEncoder.getPosition());
+     SmartDashboard.putNumber("Right Two Position", rightTwoEncoder.getPosition());
+     SmartDashboard.putNumber("Encoder One Average", getEncoderOneAverage());
+     SmartDashboard.putNumber("Encoder Two Average", getEncoderTwoAverage());
   }
 }
 

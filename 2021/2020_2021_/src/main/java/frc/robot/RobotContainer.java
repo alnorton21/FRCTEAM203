@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.FINALSimpleShootAuto;
+import frc.robot.commands.NewAutoOne;
+import frc.robot.commands.NewAutoTwo;
 import frc.robot.commands.SimpleShootAuto;
 import frc.robot.subsystems.BeaverTailSubsystem;
 import frc.robot.subsystems.ColorWheelPID;
@@ -83,6 +85,10 @@ public boolean Pidturretenabled = false;
   private final Command m_simpleShootAuto = new SimpleShootAuto (m_driveCommand);
   private final Command m_revUpFlywheel = new RevUpFlywheel(m_flywheelSubsystem);
   private final Command m_finalSimpleShootAuto = new FINALSimpleShootAuto (m_flywheelSubsystem, m_indexerSubsystem, m_plexiSubsystem, m_driveCommand);
+  private final Command m_newAutoOne = new NewAutoOne(m_driveCommand);
+  private final Command m_newAutoTwo = new NewAutoTwo(m_driveCommand);
+ 
+ 
   //A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -107,14 +113,16 @@ public boolean Pidturretenabled = false;
     m_chooser.addOption("Simple Shoot Auto", m_simpleShootAuto);
     m_chooser.addOption("FINAL Simple Shoot Auto", m_finalSimpleShootAuto);
     m_chooser.addOption("Rev Up Flywheel", m_revUpFlywheel);
+    m_chooser.addOption("2021 At Home challenge auto 1", m_newAutoOne);
+    m_chooser.addOption("2021 At Home challenge auto 2", m_newAutoTwo);
 
     Shuffleboard.getTab("Autonomous").add(m_chooser);
   
     
     m_turretSubsystem.setDefaultCommand( 
     new RunCommand(() -> m_turretSubsystem.turretRotate( 
-                         m_operatorController.getRawAxis(3)-
-                         m_operatorController.getRawAxis(2)),
+                         (m_operatorController.getRawAxis(3)-
+                         m_operatorController.getRawAxis(2))*0.50),
                          m_turretSubsystem)
     );
 
@@ -237,6 +245,10 @@ public boolean Pidturretenabled = false;
     .whenPressed(() -> m_beaverTailSubsystem.beaverBoward(1), m_beaverTailSubsystem)
     .whenReleased(() -> m_beaverTailSubsystem.beaverBop(), m_beaverTailSubsystem);
     
+    new JoystickButton(m_operatorController, Button.kStart.value)
+    .whenPressed(() -> m_driveCommand.resetEncoders(), m_driveCommand);
+    
+
     //INDEXER BUTTONS-------------------------------------------------------------------------------------------------------------------
 
     
