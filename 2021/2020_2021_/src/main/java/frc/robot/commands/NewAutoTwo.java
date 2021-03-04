@@ -42,7 +42,7 @@ public class NewAutoTwo extends SequentialCommandGroup {
     .beforeStarting(m_driveCommand::resetEncoders)
     // End the command when the robot's driven distance exceeds the desired value
     .withInterrupt(
-        () -> m_driveCommand.getEncoderOneAverage() >= 10),
+        () -> m_driveCommand.getEncoderTwoAverage() >= 4),
 
 new StartEndCommand(// START - Drive forward at the start of the command 2
       () -> m_driveCommand.driveCartesian(-0.1, 0.1, 0),
@@ -54,10 +54,10 @@ new StartEndCommand(// START - Drive forward at the start of the command 2
       .beforeStarting(m_driveCommand::resetEncoders)
       // End the command when the robot's driven distance exceeds the desired value
       .withInterrupt(
-          () -> m_driveCommand.getEncoderOneAverage() >= 40),
+          () -> m_driveCommand.getEncoderTwoAverage() >= 10),
           
   new StartEndCommand(// START - Drive forward at the start of the command 3
-      () -> m_driveCommand.driveCartesian(-0.15, 0, 0),
+      () -> m_driveCommand.driveCartesian(-0.2, 0, 0),
       // END - Stop driving at the end of the command
       () -> m_driveCommand.driveCartesian(0, 0, 0),
       // REQUIREMENTS - Requires the drive subsystem
@@ -66,7 +66,7 @@ new StartEndCommand(// START - Drive forward at the start of the command 2
       .beforeStarting(m_driveCommand::resetEncoders)
       // End the command when the robot's driven distance exceeds the desired value
       .withInterrupt(
-          () -> m_driveCommand.getEncoderOneAverage() >= 50),
+          () -> m_driveCommand.getEncoderTwoAverage() >= 15),
 
     new StartEndCommand(// START - Drive forward at the start of the command 4
         () -> m_driveCommand.driveCartesian(-0.1, 0.1, 0),
@@ -78,7 +78,7 @@ new StartEndCommand(// START - Drive forward at the start of the command 2
         .beforeStarting(m_driveCommand::resetEncoders)
         // End the command when the robot's driven distance exceeds the desired value
         .withInterrupt(
-            () -> m_driveCommand.getEncoderOneAverage() >= 40),
+            () -> m_driveCommand.getEncoderTwoAverage() >= 10),
     
   new StartEndCommand(// START - Drive forward at the start of the command 5
     () -> m_driveCommand.driveCartesian(-0.1, 0.1, 0),
@@ -90,10 +90,10 @@ new StartEndCommand(// START - Drive forward at the start of the command 2
     .beforeStarting(m_driveCommand::resetEncoders)
     // End the command when the robot's driven distance exceeds the desired value
     .withInterrupt(
-        () -> m_driveCommand.getEncoderOneAverage() >= 40),
+        () -> m_driveCommand.getEncoderTwoAverage() >= 10),
       
   new StartEndCommand(// START - Drive forward at the start of the command 6
-      () -> m_driveCommand.driveCartesian(-0.1, 0.1, 0),
+      () -> m_driveCommand.driveCartesian(-0.15, 0.1, 0),
       // END - Stop driving at the end of the command
       () -> m_driveCommand.driveCartesian(0, 0, 0),
       // REQUIREMENTS - Requires the drive subsystem
@@ -102,7 +102,7 @@ new StartEndCommand(// START - Drive forward at the start of the command 2
       .beforeStarting(m_driveCommand::resetEncoders)
       // End the command when the robot's driven distance exceeds the desired value
       .withInterrupt(
-          () -> m_driveCommand.getEncoderOneAverage() >= 40)  /*,      
+          () -> m_driveCommand.getEncoderTwoAverage() >= 4)  /*,      
   
  new StartEndCommand(// START - Drive forward at the start of the command 6
      () -> m_driveCommand.driveCartesian(-0.15, 0.1, 0),
