@@ -15,6 +15,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -47,11 +48,12 @@ public class DriveSubsystem extends SubsystemBase {
     rightOne.setIdleMode(IdleMode.kBrake);
     rightTwo.setIdleMode(IdleMode.kBrake);
 
+
     mecanumDrive.setSafetyEnabled(false);
   }
 
-  public void driveCartesian (double ySpeed, double xSpeed, double zRotation){
-    //0.07 vvv
+  public void driveCartesian (double ySpeed, double xSpeed, double zRotation){//, boolean adjusted){
+    //0.07 
     if (Math.abs(xSpeed) < 0.1){ // || Math.abs(move){ //> RobotMap.upperMovelimit) {
       xSpeed = 0; 
     }
@@ -62,7 +64,17 @@ public class DriveSubsystem extends SubsystemBase {
       zRotation = 0;
     }
 
-    mecanumDrive.driveCartesian(ySpeed, xSpeed, zRotation); 
+    /*
+    if (adjusted){
+    leftOne.set(speed);
+    leftTwo.set(speed);
+    rightOne.set(speed);
+    rightTwo.set(speed);
+    }
+    else{
+    */
+    mecanumDrive.driveCartesian(ySpeed, xSpeed, zRotation);  
+    //}
   }
 
   public void resetEncoders(){
@@ -111,6 +123,14 @@ public class DriveSubsystem extends SubsystemBase {
      SmartDashboard.putNumber("Right Two Position", rightTwoEncoder.getPosition());
      SmartDashboard.putNumber("Encoder One Average", getEncoderOneAverage());
      SmartDashboard.putNumber("Encoder Two Average", getEncoderTwoAverage());
+     
+     
+     SmartDashboard.putNumber("FL Speed", leftOne.get());
+     SmartDashboard.putNumber("FR Speed", rightOne.get());
+     SmartDashboard.putNumber("BL Speed", leftTwo.get());
+     SmartDashboard.putNumber("BR Speed", rightTwo.get());
+
+
   }
 }
 
