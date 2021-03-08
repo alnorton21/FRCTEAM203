@@ -124,12 +124,12 @@ public class DriveSubsystem extends SubsystemBase {
      SmartDashboard.putNumber("Encoder One Average", getEncoderOneAverage());
      SmartDashboard.putNumber("Encoder Two Average", getEncoderTwoAverage());
      
-     
+     /*
      SmartDashboard.putNumber("FL Speed", leftOne.get());
      SmartDashboard.putNumber("FR Speed", rightOne.get());
      SmartDashboard.putNumber("BL Speed", leftTwo.get());
      SmartDashboard.putNumber("BR Speed", rightTwo.get());
-
+*/
 
   }
 }
