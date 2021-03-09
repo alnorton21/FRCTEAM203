@@ -44,7 +44,7 @@ public class NewAutoOne extends SequentialCommandGroup {
       .withInterrupt(
           () -> m_driveCommand.getEncoderOneAverage() >= 5),
           
-  new StartEndCommand(// START - Drive forward at the start of the command
+  new StartEndCommand(// START - turn 1
   () -> m_driveCommand.driveCartesian(0, 0, -0.3),
   // END - Stop driving at the end of the command
   () -> m_driveCommand.driveCartesian(0, 0, 0),
@@ -54,9 +54,9 @@ public class NewAutoOne extends SequentialCommandGroup {
   .beforeStarting(m_driveCommand::resetEncoders)
   // End the command when the robot's driven distance exceeds the desired value
   .withInterrupt(
-      () -> m_driveCommand.getEncoderforAngle() <= -quarterTurn),
+      () -> Math.abs(m_driveCommand.getEncoderforAngle()) >= quarterTurn),
 
-new StartEndCommand(// START - Drive forward at the start of the command
+new StartEndCommand(// START - Drive forward 2
 () -> m_driveCommand.driveCartesian(0, 0.1, 0),
 // END - Stop driving at the end of the command
 () -> m_driveCommand.driveCartesian(0, 0, 0),
@@ -68,7 +68,7 @@ m_driveCommand)
 .withInterrupt(
     () -> m_driveCommand.getEncoderOneAverage() >= 2),
 
-      new StartEndCommand(// START - Drive forward at the start of the command
+      new StartEndCommand(// turn to face forward / turn right 2
   () -> m_driveCommand.driveCartesian(0, 0, 0.3),
   // END - Stop driving at the end of the command
   () -> m_driveCommand.driveCartesian(0, 0, 0),
@@ -80,8 +80,8 @@ m_driveCommand)
   .withInterrupt(
       () -> m_driveCommand.getEncoderTwoAverage() <= -quarterTurn),
       
-      new StartEndCommand(// START - Drive forward at the start of the command
-  () -> m_driveCommand.driveCartesian(0, 0, 0.3),
+      new StartEndCommand(// START - Drive forward 3
+  () -> m_driveCommand.driveCartesian(0, 0.3, 0),
   // END - Stop driving at the end of the command
   () -> m_driveCommand.driveCartesian(0, 0, 0),
   // REQUIREMENTS - Requires the drive subsystem

@@ -103,8 +103,8 @@ public boolean Pidturretenabled = false;
 
     // Manual Drive of the Robot
     m_driveCommand.setDefaultCommand( 
-    new RunCommand(() -> m_driveCommand.driveCartesian(m_driverController.getRawAxis(2)*1.00 + 
-                         m_driverController.getRawAxis(3)*-1.00,
+    new RunCommand(() -> m_driveCommand.driveCartesian(m_driverController.getRawAxis(2)*-1.00 + 
+                         m_driverController.getRawAxis(3)*1.00,
                          m_driverController.getY(GenericHID.Hand.kLeft)*-1.00,
                          m_driverController.getX(GenericHID.Hand.kRight)),
                          m_driveCommand)

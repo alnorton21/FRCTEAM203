@@ -48,7 +48,7 @@ public class AutoSkeleton extends SequentialCommandGroup {
     .beforeStarting(m_driveCommand::resetEncoders)
     // End the command when the robot's driven distance exceeds the desired value
     .withInterrupt(
-        () -> m_driveCommand.getEncoderTwoAverage() >= 4), TELLS IT TO STOP WHEN IT HIT 4 FT (should be 4 feet ask norton)
+        () -> m_driveCommand.getEncoderTwoAverage() >= 4), TELLS IT TO STOP WHEN IT HITS 4 FT (should be 4 feet ask norton)
 */
 //--------------------------------------------------------------------------------------------
 

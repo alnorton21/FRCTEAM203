@@ -31,9 +31,11 @@ public class NewAutoTwo extends SequentialCommandGroup {
 
   public NewAutoTwo(DriveSubsystem m_driveCommand) {
     addCommands(
-
+ 
+//() -> m_driveCommand.driveCartesian(STRAIFE LEFT AND RIGHT, FORWARD AND BACK, ROTATE LEFT AND RIGHT),
+ 
   new StartEndCommand(// START - Drive forward at the start of the command 1
-    () -> m_driveCommand.driveCartesian(0.15, 0.1, 0),
+    () -> m_driveCommand.driveCartesian(0, 0.3, 0),
     // END - Stop driving at the end of the command
     () -> m_driveCommand.driveCartesian(0, 0, 0),
     // REQUIREMENTS - Requires the drive subsystem
@@ -45,7 +47,7 @@ public class NewAutoTwo extends SequentialCommandGroup {
         () -> m_driveCommand.getEncoderTwoAverage() >= 4),
 
 new StartEndCommand(// START - Drive forward at the start of the command 2
-      () -> m_driveCommand.driveCartesian(-0.1, 0.1, 0),
+      () -> m_driveCommand.driveCartesian(0.1, 0.1, 0),
       // END - Stop driving at the end of the command
       () -> m_driveCommand.driveCartesian(0, 0, 0),
       // REQUIREMENTS - Requires the drive subsystem
