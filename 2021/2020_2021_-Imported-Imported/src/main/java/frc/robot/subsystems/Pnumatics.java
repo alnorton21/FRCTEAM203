@@ -22,29 +22,29 @@ public class Pnumatics extends SubsystemBase {
 
    
   Compressor compressor;
- //Solenoid solenoidR = new Solenoid(16, 2);
-  //Solenoid solenoidL = new Solenoid(16, 1);
+  Solenoid solenoidR;// = new Solenoid(2);
+  Solenoid solenoidL;// = new Solenoid(1);
   
 
 
   public Pnumatics() {
     
-  compressor = new Compressor(0);
+  compressor = new Compressor();
   
   compressor.setClosedLoopControl(true);
-  //solenoidR = new Solenoid(16, 2);
-  //solenoidL = new Solenoid(16, 1);
+//  solenoidR = new Solenoid(2);
+//  solenoidL = new Solenoid(1);
 
 }
 
   public void enableSolenoids(){
-      //solenoidR.set(true);
-      //solenoidL.set(true);
+  //  solenoidR.set(true);
+  //  solenoidL.set(true);
   }
 
   public void disableSolenoids(){
-      //solenoidR.set(false);
-      //solenoidL.set(false);
+  //  solenoidR.set(false);
+  //  solenoidL.set(false);
   }
 
 
