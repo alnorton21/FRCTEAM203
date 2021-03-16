@@ -19,32 +19,24 @@ public class Pnumatics extends SubsystemBase {
 /**
    * Creates a new Piston.
    */
-
-   
-  Compressor compressor;
- //Solenoid solenoidR = new Solenoid(16, 2);
-  //Solenoid solenoidL = new Solenoid(16, 1);
-  
-
+  public static Compressor compressor = new Compressor(16);
+  public static Solenoid solenoidR = new Solenoid(16, 2);
+  public static Solenoid solenoidL = new Solenoid(16, 1);
 
   public Pnumatics() {
     
-  compressor = new Compressor(0);
-  
   compressor.setClosedLoopControl(true);
-  //solenoidR = new Solenoid(16, 2);
-  //solenoidL = new Solenoid(16, 1);
 
 }
 
   public void enableSolenoids(){
-      //solenoidR.set(true);
-      //solenoidL.set(true);
+      solenoidR.set(true);
+      solenoidL.set(true);
   }
 
   public void disableSolenoids(){
-      //solenoidR.set(false);
-      //solenoidL.set(false);
+      solenoidR.set(false);
+      solenoidL.set(false);
   }
 
 

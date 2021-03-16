@@ -159,13 +159,13 @@ public boolean Pidturretenabled = false;
   // OPERATOR BUTTONS- OPERATOR BUTTONS- OPERATOR BUTTONS- OPERATOR BUTTONS- OEPRATOR BUTTONS- OPERATOR BUTTONS- OPERATOR BUTTONS
 
     //ACCUMULATOR BUTTONS--------------------------------------------------------------------------------------------------------
-    /*
+    
     new JoystickButton(m_driverController, Button.kA.value)
     .whenPressed(() -> m_pnumatics.enableSolenoids(), m_pnumatics);
     
     new JoystickButton(m_driverController, Button.kB.value)
     .whenReleased(() -> m_pnumatics.disableSolenoids(), m_pnumatics);
-    */
+    
     //HOOD BUTTONS -----------------------------------------------------------------------------------------------------------
     new JoystickButton(m_operatorController, Button.kY.value)
     .whenPressed(() -> m_hoodSubsystem.hoodUp(0.8), m_hoodSubsystem)
