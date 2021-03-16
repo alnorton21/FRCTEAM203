@@ -29,9 +29,75 @@ public class NewAutoOne extends SequentialCommandGroup {
   double quarterTurn = 0.1; //45 degrees //0.5
   double startTime = 0;
 
+  enum Sensors{
+      ENCODER, GYRO_LEFT, GYRO_RIGHT
+  }
+
+  public void Adrive(DriveSubsystem m_driveSubsystem, double ySpeed, double xSpeed,
+                     double zRotation, Sensors sensorType, double sensorValue){
+    /*
+    Autonomous drive command for mechanum drive
+    
+    Parameters:
+        m_driveSubsytem - Drive subsystem
+        ySpeed -        North/South movement of robot
+        xSpeed -        East/West movement of robot
+        zRotation -     Turning motion of robot
+        sensorValue -   Sensor value used to interrupt the robot's curent movement.
+        sensorType -    Type of sensor used to interrupt the robot's current movement.
+                        Use Sensors enumerators for this parameter
+    Returns:
+        None
+    */
+    if (sensorType == Sensors.ENCODER){
+        
+        new StartEndCommand(// START - Drive forward at the start of the command
+        () -> m_driveSubsystem.driveCartesian(ySpeed, xSpeed, encoderAvg),
+        // END - Stop driving at the end of the command
+        () -> m_driveSubsystem.resetEncoders(),
+        // REQUIREMENTS - Requires the drive subsystem
+        m_driveCommand)
+        // Reset the drive encoders before starting
+        .beforeStarting(m_driveCommand::resetEncoders)
+        // End the command when the robot's driven distance exceeds the desired value
+        .withInterrupt(
+        () -> m_driveSubsystem.getEncoderOneAverage() >= encoderAvg);
+    }
+
+    else if (sensorType == Sensors.GYRO_LEFT){
+        new StartEndCommand(// START - Drive forward at the start of the command
+        () -> m_driveSubsystem.driveCartesian(ySpeed, xSpeed, encoderAvg),
+        // END - Stop driving at the end of the command
+        () -> m_driveSubsystem.resetEncoders(),
+        // REQUIREMENTS - Requires the drive subsystem
+        m_driveCommand)
+        // Reset the drive encoders before starting
+        .beforeStarting(m_driveCommand::resetEncoders)
+        // End the command when the robot's driven distance exceeds the desired value
+        .withInterrupt(
+        () -> m_driveSubsystem.getEncoderforAngle() >= encoderAvg);
+    }
+
+    else if (sensorType == Sensors.GYRO_RIGHT){
+        new StartEndCommand(// START - Drive forward at the start of the command
+        () -> m_driveSubsystem.driveCartesian(ySpeed, xSpeed, encoderAvg),
+        // END - Stop driving at the end of the command
+        () -> m_driveSubsystem.resetEncoders(),
+        // REQUIREMENTS - Requires the drive subsystem
+        m_driveCommand)
+        // Reset the drive encoders before starting
+        .beforeStarting(m_driveCommand::resetEncoders)
+        // End the command when the robot's driven distance exceeds the desired value
+        .withInterrupt(
+        () -> m_driveSubsystem.getEncoderforAngle() <= encoderAvg);
+    }
+  }
+
   public NewAutoOne(DriveSubsystem m_driveCommand) {
     addCommands(
-
+        Adrive(m_driveCommand, 0, 0.3, 0, Sensor.ENCODER, 5),
+        Adrive(m_driveCommand, 0, 0, -0.3, Sensor.GYRO_LEFT, quarterTurn),
+    /*
     new StartEndCommand(// START - Drive forward at the start of the command
       () -> m_driveCommand.driveCartesian(0, 0.3, 0),
       // END - Stop driving at the end of the command
@@ -43,18 +109,20 @@ public class NewAutoOne extends SequentialCommandGroup {
       // End the command when the robot's driven distance exceeds the desired value
       .withInterrupt(
           () -> m_driveCommand.getEncoderOneAverage() >= 5),
-          
-  new StartEndCommand(// START - turn 1
-  () -> m_driveCommand.driveCartesian(0, 0, -0.3),
-  // END - Stop driving at the end of the command
-  () -> m_driveCommand.driveCartesian(0, 0, 0),
-  // REQUIREMENTS - Requires the drive subsystem
-  m_driveCommand)
-  // Reset the drive encoders before starting
-  .beforeStarting(m_driveCommand::resetEncoders)
-  // End the command when the robot's driven distance exceeds the desired value
-  .withInterrupt(
-      () -> Math.abs(m_driveCommand.getEncoderforAngle()) >= quarterTurn),
+    
+    new StartEndCommand(// START - turn 1
+    () -> m_driveCommand.driveCartesian(0, 0, -0.3),
+    // END - Stop driving at the end of the command
+    () -> m_driveCommand.driveCartesian(0, 0, 0),
+    // REQUIREMENTS - Requires the drive subsystem
+    m_driveCommand)
+    // Reset the drive encoders before starting
+    .beforeStarting(m_driveCommand::resetEncoders)
+    // End the command when the robot's driven distance exceeds the desired value
+    .withInterrupt(
+        () -> Math.abs(m_driveCommand.getEncoderforAngle()) >= quarterTurn),
+    */
+
 
 new StartEndCommand(// START - Drive forward 2
 () -> m_driveCommand.driveCartesian(0, 0.1, 0),

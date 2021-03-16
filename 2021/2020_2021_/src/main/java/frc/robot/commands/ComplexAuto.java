@@ -42,7 +42,6 @@ public class ComplexAuto extends SequentialCommandGroup {
       .withInterrupt(
           () -> m_driveCommand.getEncoderOneAverage() >= 50),
 
-
       new StartEndCommand(// START - Drive forward at the start of the command
       () -> m_flywheelSubsystem.forwardFlywheel(0.85),
       // END - Stop driving at the end of the command
