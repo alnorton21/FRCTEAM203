@@ -47,7 +47,7 @@ public class AutoDrive extends CommandBase {
   
   @Override
   public void execute() {
-    m_drive.driveCartesian(m_ySpeed, m_xSpeed, m_zRotation);
+    m_drive.driveCartesian(m_ySpeed, m_xSpeed, m_zRotation,0);
   }
 
 
