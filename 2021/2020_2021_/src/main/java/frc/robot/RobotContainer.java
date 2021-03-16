@@ -32,6 +32,7 @@ import frc.robot.subsystems.FlywheelSubsystem;
 import frc.robot.subsystems.HoodPID;
 import frc.robot.subsystems.HoodSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.NavXTest;
 import frc.robot.subsystems.PlexiSubsystem;
 import frc.robot.subsystems.Pnumatics;
 import frc.robot.subsystems.TurretPID;
@@ -65,7 +66,7 @@ public boolean Pidturretenabled = false;
   public final HoodPID m_hoodPID = new HoodPID();
   public final Pnumatics m_pnumatics = new Pnumatics();
   public final HoodSubsystem m_hoodSubsystem = new HoodSubsystem();
-
+  public final NavXTest m_navX = new NavXTest();
   /*
   //A simple auto routine that drives forward a specified distance, and then stops
   private final Command m_simpleAuto = new StartEndCommand(
@@ -86,7 +87,7 @@ public boolean Pidturretenabled = false;
   private final Command m_simpleShootAuto = new SimpleShootAuto (m_driveCommand);
   private final Command m_revUpFlywheel = new RevUpFlywheel(m_flywheelSubsystem);
   private final Command m_finalSimpleShootAuto = new FINALSimpleShootAuto (m_flywheelSubsystem, m_indexerSubsystem, m_plexiSubsystem, m_driveCommand);
-  private final Command m_newAutoOne = new NewAutoOne(m_driveCommand);
+  private final Command m_newAutoOne = new NewAutoOne(m_driveCommand, m_navX);
   private final Command m_newAutoTwo = new NewAutoTwo(m_driveCommand);
   private final Command m_autoSkeleton = new AutoSkeleton(m_driveCommand);
  
@@ -251,6 +252,9 @@ public boolean Pidturretenabled = false;
     
     new JoystickButton(m_operatorController, Button.kStart.value)
     .whenPressed(() -> m_driveCommand.resetEncoders(), m_driveCommand);
+    
+    new JoystickButton(m_operatorController, Button.kBack.value)
+    .whenPressed(() -> m_navX.reset(), m_navX);
     
 
     //INDEXER BUTTONS-------------------------------------------------------------------------------------------------------------------

@@ -77,6 +77,11 @@ public class DriveSubsystem extends SubsystemBase {
     //}
   }
 
+  public void driveCartesian (double ySpeed, double xSpeed, double zRotation, int a){// no deadzone, shove rando number on end
+    mecanumDrive.driveCartesian(ySpeed, xSpeed, zRotation);  
+    
+  }
+  
   public void resetEncoders(){
     leftOneEncoder.setPosition(0);
     leftTwoEncoder.setPosition(0);
