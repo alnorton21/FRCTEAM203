@@ -20,11 +20,10 @@ public class Pnumatics extends SubsystemBase {
    * Creates a new Piston.
    */
   public static Compressor compressor = new Compressor(16);
-  public static Solenoid solenoidR = new Solenoid(16, 2);
   public static Solenoid solenoidL = new Solenoid(16, 1);
+  public static Solenoid solenoidR = new Solenoid(16, 2);
 
   public Pnumatics() {
-    
   compressor.setClosedLoopControl(true);
 
 }
