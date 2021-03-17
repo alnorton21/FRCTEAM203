@@ -19,7 +19,7 @@ public class AutoDrive extends CommandBase {
   //private final HatchSubsystem m_hatchSubsystem;
 
   enum Sensors{
-    ENCODER, GYRO_LEFT, GYRO_RIGHT
+    ENCODER, GYRO_LEFT, GYRO_RIGHT, ENCODER_BACK
   }
 
   public AutoDrive(DriveSubsystem subsystem, NavXTest navX, double ySpeed, 
@@ -53,6 +53,9 @@ public class AutoDrive extends CommandBase {
 
   @Override
   public boolean isFinished() {
+    if (m_sensorType == Sensors.ENCODER_BACK  && m_drive.getEncoderOneAverage() <= m_sensorValue){
+      return true;
+    }
     if (m_sensorType == Sensors.ENCODER  && m_drive.getEncoderOneAverage() >= m_sensorValue){
       return true;
     }

@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.subsystems.BeaverTailSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.FlywheelSubsystem;
+import frc.robot.subsystems.NavXTest;
+
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -23,141 +24,40 @@ public class NewAutoTwo extends SequentialCommandGroup {
    * Creates a new ComplexAuto.
    * 
    * @param DriveSubsystem
-   * @param FlywheelSubsystem
+   * @param NavXTest
    * 
    */
-
+  //double quarterTurn = 45; //45 degrees //0.5
   double startTime = 0;
+  int ignore = 0; //this is to bypass deadzone
 
-  public NewAutoTwo(DriveSubsystem m_driveCommand) {
+  double rotSpeed = 0.05;
+
+  public NewAutoTwo(DriveSubsystem m_driveCommand, NavXTest m_navX) {
+
     addCommands(
- 
-//() -> m_driveCommand.driveCartesian(STRAIFE LEFT AND RIGHT, FORWARD AND BACK, ROTATE LEFT AND RIGHT),
- 
-  new StartEndCommand(// START - Drive forward at the start of the command 1
-    () -> m_driveCommand.driveCartesian(0, 0.3, 0),
-    // END - Stop driving at the end of the command
-    () -> m_driveCommand.driveCartesian(0, 0, 0),
-    // REQUIREMENTS - Requires the drive subsystem
-    m_driveCommand)
-    // Reset the drive encoders before starting
-    .beforeStarting(m_driveCommand::resetEncoders)
-    // End the command when the robot's driven distance exceeds the desired value
-    .withInterrupt(
-        () -> m_driveCommand.getEncoderTwoAverage() >= 4),
-
-new StartEndCommand(// START - Drive forward at the start of the command 2
-      () -> m_driveCommand.driveCartesian(0.1, 0.1, 0),
-      // END - Stop driving at the end of the command
-      () -> m_driveCommand.driveCartesian(0, 0, 0),
-      // REQUIREMENTS - Requires the drive subsystem
-      m_driveCommand)
-      // Reset the drive encoders before starting
-      .beforeStarting(m_driveCommand::resetEncoders)
-      // End the command when the robot's driven distance exceeds the desired value
-      .withInterrupt(
-          () -> m_driveCommand.getEncoderTwoAverage() >= 10),
-          
-  new StartEndCommand(// START - Drive forward at the start of the command 3
-      () -> m_driveCommand.driveCartesian(-0.2, 0, 0),
-      // END - Stop driving at the end of the command
-      () -> m_driveCommand.driveCartesian(0, 0, 0),
-      // REQUIREMENTS - Requires the drive subsystem
-      m_driveCommand)
-      // Reset the drive encoders before starting
-      .beforeStarting(m_driveCommand::resetEncoders)
-      // End the command when the robot's driven distance exceeds the desired value
-      .withInterrupt(
-          () -> m_driveCommand.getEncoderTwoAverage() >= 15),
-
-    new StartEndCommand(// START - Drive forward at the start of the command 4
-        () -> m_driveCommand.driveCartesian(-0.1, 0.1, 0),
-        // END - Stop driving at the end of the command
-        () -> m_driveCommand.driveCartesian(0, 0, 0),
-        // REQUIREMENTS - Requires the drive subsystem
-        m_driveCommand)
-        // Reset the drive encoders before starting
-        .beforeStarting(m_driveCommand::resetEncoders)
-        // End the command when the robot's driven distance exceeds the desired value
-        .withInterrupt(
-            () -> m_driveCommand.getEncoderTwoAverage() >= 10),
-    
-  new StartEndCommand(// START - Drive forward at the start of the command 5
-    () -> m_driveCommand.driveCartesian(-0.1, 0.1, 0),
-    // END - Stop driving at the end of the command
-    () -> m_driveCommand.driveCartesian(0, 0, 0),
-    // REQUIREMENTS - Requires the drive subsystem
-    m_driveCommand)
-    // Reset the drive encoders before starting
-    .beforeStarting(m_driveCommand::resetEncoders)
-    // End the command when the robot's driven distance exceeds the desired value
-    .withInterrupt(
-        () -> m_driveCommand.getEncoderTwoAverage() >= 10),
-      
-  new StartEndCommand(// START - Drive forward at the start of the command 6
-      () -> m_driveCommand.driveCartesian(-0.15, 0.1, 0),
-      // END - Stop driving at the end of the command
-      () -> m_driveCommand.driveCartesian(0, 0, 0),
-      // REQUIREMENTS - Requires the drive subsystem
-      m_driveCommand)
-      // Reset the drive encoders before starting
-      .beforeStarting(m_driveCommand::resetEncoders)
-      // End the command when the robot's driven distance exceeds the desired value
-      .withInterrupt(
-          () -> m_driveCommand.getEncoderTwoAverage() >= 4)  /*,      
-  
- new StartEndCommand(// START - Drive forward at the start of the command 6
-     () -> m_driveCommand.driveCartesian(-0.15, 0.1, 0),
-     // END - Stop driving at the end of the command
-     () -> m_driveCommand.driveCartesian(0, 0, 0),
-     // REQUIREMENTS - Requires the drive subsystem
-     m_driveCommand)
-     // Reset the drive encoders before starting
-     .beforeStarting(m_driveCommand::resetEncoders)
-     // End the command when the robot's driven distance exceeds the desired value
-     .withInterrupt(
-         () -> m_driveCommand.getEncoderOneAverage() >= 90),      
-         
- new StartEndCommand(// START - Drive forward at the start of the 7
-     () -> m_driveCommand.driveCartesian(-0.15, 0.1, 0),
-     // END - Stop driving at the end of the command
-     () -> m_driveCommand.driveCartesian(0, 0, 0),
-     // REQUIREMENTS - Requires the drive subsystem
-     m_driveCommand)
-     // Reset the drive encoders before starting
-     .beforeStarting(m_driveCommand::resetEncoders)
-     // End the command when the robot's driven distance exceeds t
-     .withInterrupt(
-         () -> m_driveCommand.getEncoderOneAverage() >= 90),      
-
- new StartEndCommand(// START - Drive forward at the start of the 8
-     () -> m_driveCommand.driveCartesian(-0.15, 0.1, 0),
-     // END - Stop driving at the end of the command
-     () -> m_driveCommand.driveCartesian(0, 0, 0),
-     // REQUIREMENTS - Requires the drive subsystem
-     m_driveCommand)
-     // Reset the drive encoders before starting
-     .beforeStarting(m_driveCommand::resetEncoders)
-     // End the command when the robot's driven distance exceeds t
-     .withInterrupt(
-         () -> m_driveCommand.getEncoderOneAverage() >= 90),      
-    
-  new StartEndCommand(// START - Drive forward at the start of the command 9
-      () -> m_driveCommand.driveCartesian(0.1, 0.1, 0),
-      // END - Stop driving at the end of the command
-      () -> m_driveCommand.driveCartesian(0, 0, 0),
-      // REQUIREMENTS - Requires the drive subsystem
-      m_driveCommand)
-      // Reset the drive encoders before starting
-      .beforeStarting(m_driveCommand::resetEncoders)
-      // End the command when the robot's driven distance exceeds the desired value
-      .withInterrupt(
-          () -> m_driveCommand.getEncoderOneAverage() >= 40) */);
-
-
-
-    // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
-    //super();
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 4.5, true),                //1
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , -0.1, AutoDrive.Sensors.GYRO_LEFT, -80, false), //2
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 4, false),                //3
+        new AutoDrive(m_driveCommand, m_navX,  0, -0.3, 0  , AutoDrive.Sensors.ENCODER_BACK, -3.5, false),                //3
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.1, AutoDrive.Sensors.GYRO_RIGHT, -5, false), //4
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 2.5, false),                //5
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.1, AutoDrive.Sensors.GYRO_RIGHT, 80, false), //6
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 4, false),                //7
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , -0.1, AutoDrive.Sensors.GYRO_LEFT, 10, false), //8
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 4, false),                //9
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , -0.1, AutoDrive.Sensors.GYRO_LEFT, -80, false), //8
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 8, false),                //9
+        new AutoDrive(m_driveCommand, m_navX,  0, -0.15, 0  , AutoDrive.Sensors.ENCODER_BACK, -1, false),                //9
+        new AutoDrive(m_driveCommand, m_navX,  0, -0.3, 0  , AutoDrive.Sensors.ENCODER_BACK, -7, false),                //9
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.1, AutoDrive.Sensors.GYRO_RIGHT, -10, false), //8
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 6.35, false),                //9
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , -0.1, AutoDrive.Sensors.GYRO_LEFT, -80, false), //8
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 8.5, false),                //9
+        new AutoDrive(m_driveCommand, m_navX,  0, -0.3, 0  , AutoDrive.Sensors.ENCODER_BACK, -2.8, false),                //9
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.1, AutoDrive.Sensors.GYRO_RIGHT, -10, false), //8
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 4.3, false)                //9
+        );          //9
+        
   }
 }

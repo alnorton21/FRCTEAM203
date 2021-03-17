@@ -88,7 +88,7 @@ public boolean Pidturretenabled = false;
   private final Command m_revUpFlywheel = new RevUpFlywheel(m_flywheelSubsystem);
   private final Command m_finalSimpleShootAuto = new FINALSimpleShootAuto (m_flywheelSubsystem, m_indexerSubsystem, m_plexiSubsystem, m_driveCommand);
   private final Command m_newAutoOne = new NewAutoOne(m_driveCommand, m_navX);
-  private final Command m_newAutoTwo = new NewAutoTwo(m_driveCommand);
+  private final Command m_newAutoTwo = new NewAutoTwo(m_driveCommand,m_navX);
   private final Command m_autoSkeleton = new AutoSkeleton(m_driveCommand);
  
  
@@ -168,11 +168,11 @@ public boolean Pidturretenabled = false;
     
     //HOOD BUTTONS -----------------------------------------------------------------------------------------------------------
     new JoystickButton(m_operatorController, Button.kY.value)
-    .whenPressed(() -> m_hoodSubsystem.hoodUp(0.8), m_hoodSubsystem)
+    .whenPressed(() -> m_hoodSubsystem.hoodUp(0.5), m_hoodSubsystem)
     .whenReleased(() -> m_hoodSubsystem.hoodStop(), m_hoodSubsystem);
     
     new JoystickButton(m_operatorController, Button.kX.value)
-    .whenPressed(() -> m_hoodSubsystem.hoodDown(0.8), m_hoodSubsystem)
+    .whenPressed(() -> m_hoodSubsystem.hoodDown(0.5), m_hoodSubsystem)
     .whenReleased(() -> m_hoodSubsystem.hoodStop(), m_hoodSubsystem);
  
     /* 

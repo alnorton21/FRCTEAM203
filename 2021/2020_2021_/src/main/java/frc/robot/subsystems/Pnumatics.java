@@ -23,10 +23,9 @@ public class Pnumatics extends SubsystemBase {
   public static Solenoid solenoidR = new Solenoid(16, 2);
   public static Solenoid solenoidL = new Solenoid(16, 1);
 
-  public Pnumatics() {
-    
+  public Pnumatics() { 
   compressor.setClosedLoopControl(true);
-
+  compressor.stop();
 }
 
   public void enableSolenoids(){

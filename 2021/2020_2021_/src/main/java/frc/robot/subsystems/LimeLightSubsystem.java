@@ -24,8 +24,6 @@ NetworkTableEntry ta = table.getEntry("ta");
 
 NetworkTableEntry status = table.getEntry("status");
 
-
-
 /*   //VERY TESTY, JUST A BASIC THING I WANT TO TRY OUT
 
 if(tx > 5){ //checking if robot is within 5 somethings of target
