@@ -19,10 +19,12 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoSkeleton;
+import frc.robot.commands.Barrel;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.FINALSimpleShootAuto;
 import frc.robot.commands.NewAutoOne;
 import frc.robot.commands.NewAutoTwo;
+import frc.robot.commands.PathABlue;
 import frc.robot.commands.SimpleShootAuto;
 import frc.robot.subsystems.BeaverTailSubsystem;
 import frc.robot.subsystems.ColorWheelPID;
@@ -90,6 +92,8 @@ public boolean Pidturretenabled = false;
   private final Command m_newAutoOne = new NewAutoOne(m_driveCommand, m_navX);
   private final Command m_newAutoTwo = new NewAutoTwo(m_driveCommand,m_navX);
   private final Command m_autoSkeleton = new AutoSkeleton(m_driveCommand);
+  private final Command m_pathABlue = new PathABlue(m_driveCommand, m_navX, m_flywheelSubsystem);
+  private final Command m_barrel = new Barrel(m_driveCommand, m_navX);
  
  
   //A chooser for autonomous commands
@@ -118,6 +122,8 @@ public boolean Pidturretenabled = false;
     m_chooser.addOption("Rev Up Flywheel", m_revUpFlywheel);
     m_chooser.addOption("2021 At Home challenge auto 1", m_newAutoOne);
     m_chooser.addOption("2021 At Home challenge auto 2", m_newAutoTwo);
+    m_chooser.addOption("2021 At Home challenge Path A Blue", m_pathABlue);
+    m_chooser.addOption("barrel", m_barrel);
     m_chooser.addOption("AUTO SKELETON", m_autoSkeleton);
 
 

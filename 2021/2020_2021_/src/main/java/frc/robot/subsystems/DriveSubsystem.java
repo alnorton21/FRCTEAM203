@@ -52,6 +52,25 @@ public class DriveSubsystem extends SubsystemBase {
     mecanumDrive.setSafetyEnabled(false);
   }
 
+  public void setCoast(){
+
+    leftOne.setIdleMode(IdleMode.kCoast);
+    leftTwo.setIdleMode(IdleMode.kCoast);
+    rightOne.setIdleMode(IdleMode.kCoast);
+    rightTwo.setIdleMode(IdleMode.kCoast);
+
+  }
+
+  public void setBrake(){
+
+    leftOne.setIdleMode(IdleMode.kBrake);
+    leftTwo.setIdleMode(IdleMode.kBrake);
+    rightOne.setIdleMode(IdleMode.kBrake);
+    rightTwo.setIdleMode(IdleMode.kBrake);
+
+  }
+
+
   public void driveCartesian (double ySpeed, double xSpeed, double zRotation){//, boolean adjusted){
     //0.07 
     if (Math.abs(xSpeed) < 0.1){ // || Math.abs(move){ //> RobotMap.upperMovelimit) {
