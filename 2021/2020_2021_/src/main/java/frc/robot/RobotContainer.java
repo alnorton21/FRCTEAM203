@@ -25,6 +25,7 @@ import frc.robot.commands.FINALSimpleShootAuto;
 import frc.robot.commands.NewAutoOne;
 import frc.robot.commands.NewAutoTwo;
 import frc.robot.commands.PathABlue;
+import frc.robot.commands.PathARed;
 import frc.robot.commands.SimpleShootAuto;
 import frc.robot.subsystems.BeaverTailSubsystem;
 import frc.robot.subsystems.ColorWheelPID;
@@ -92,8 +93,9 @@ public boolean Pidturretenabled = false;
   private final Command m_newAutoOne = new NewAutoOne(m_driveCommand, m_navX);
   private final Command m_newAutoTwo = new NewAutoTwo(m_driveCommand,m_navX);
   private final Command m_autoSkeleton = new AutoSkeleton(m_driveCommand);
-  private final Command m_pathABlue = new PathABlue(m_driveCommand, m_navX, m_flywheelSubsystem);
+  private final Command m_pathABlue = new PathABlue(m_driveCommand, m_navX, m_beaverTailSubsystem, m_pnumatics);
   private final Command m_barrel = new Barrel(m_driveCommand, m_navX);
+  private final Command m_pathARed = new PathARed(m_driveCommand, m_navX, m_beaverTailSubsystem, m_pnumatics);
  
  
   //A chooser for autonomous commands
@@ -124,6 +126,8 @@ public boolean Pidturretenabled = false;
     m_chooser.addOption("2021 At Home challenge auto 2", m_newAutoTwo);
     m_chooser.addOption("2021 At Home challenge Path A Blue", m_pathABlue);
     m_chooser.addOption("barrel", m_barrel);
+    m_chooser.addOption("Path A Red", m_pathARed);
+    m_chooser.addOption("Path A Red", m_pathABlue);
     m_chooser.addOption("AUTO SKELETON", m_autoSkeleton);
 
 
@@ -180,7 +184,13 @@ public boolean Pidturretenabled = false;
     new JoystickButton(m_operatorController, Button.kX.value)
     .whenPressed(() -> m_hoodSubsystem.hoodDown(0.5), m_hoodSubsystem)
     .whenReleased(() -> m_hoodSubsystem.hoodStop(), m_hoodSubsystem);
- 
+    
+    
+    new JoystickButton(m_operatorController, Button.kX.value)
+    .whenPressed(() -> m_hoodSubsystem.hoodDown(0.5), m_hoodSubsystem)
+    .whenReleased(() -> m_hoodSubsystem.hoodStop(), m_hoodSubsystem);
+
+
     /* 
     new POVButton(m_operatorController,0,0)
     .whenPressed(() -> m_hoodSubsystem.hoodUp(0.10), m_hoodSubsystem)
@@ -255,9 +265,14 @@ public boolean Pidturretenabled = false;
     
     new JoystickButton(m_operatorController, Button.kStart.value)
     .whenPressed(() -> m_driveCommand.resetEncoders(), m_driveCommand);
-    
+    /*
     new JoystickButton(m_operatorController, Button.kBack.value)
     .whenPressed(() -> m_navX.reset(), m_navX);
+    */
+    
+    new JoystickButton(m_operatorController, Button.kBack.value)
+    .whenPressed(() -> m_turretSubsystem.turretRotate(), m_turretSubsystem)
+    .whenReleased(() -> m_turretSubsystem.turretStop(), m_turretSubsystem);
     
 
     //INDEXER BUTTONS-------------------------------------------------------------------------------------------------------------------

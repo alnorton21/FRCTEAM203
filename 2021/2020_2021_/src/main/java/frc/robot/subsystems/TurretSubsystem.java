@@ -30,10 +30,11 @@ public class TurretSubsystem extends SubsystemBase {
   public TurretSubsystem() {
 
   }
-/*
+
   public void turretRotate(){
 
-    turretOne.set(-vturret.light.getTX()*0.1);     
+    turretOne.set(ControlMode.PercentOutput, vturret.light.getTX()*0.1);     
+  //  turretOne.set(ControlMode.PercentOutput, -vturret.light.getTX()*0.1);     
 
   } 
 

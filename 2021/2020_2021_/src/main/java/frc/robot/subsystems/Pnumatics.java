@@ -26,6 +26,8 @@ public class Pnumatics extends SubsystemBase {
   public Pnumatics() {
   compressor.setClosedLoopControl(true);
   compressor.stop();
+
+
 }
 
   public void enableSolenoids(){
@@ -53,6 +55,7 @@ public class Pnumatics extends SubsystemBase {
   public Boolean compressorStatus(){
     return compressorStatus();
   }
+  
 /*
   public void compressorStatusPrint(){
     System.out.println(compressorStatus());

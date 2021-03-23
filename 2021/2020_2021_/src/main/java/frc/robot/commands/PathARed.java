@@ -21,7 +21,7 @@ import frc.robot.subsystems.Pnumatics;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 
-public class PathABlue extends SequentialCommandGroup {
+public class PathARed extends SequentialCommandGroup {
   /**
    * Creates a new ComplexAuto.
    * 
@@ -35,13 +35,13 @@ public class PathABlue extends SequentialCommandGroup {
 
   double rotSpeed = 0.05;
 
-  public PathABlue(DriveSubsystem m_driveCommand, NavXTest m_navX, BeaverTailSubsystem m_intake, Pnumatics m_pnumatics) {
+  public PathARed(DriveSubsystem m_driveCommand, NavXTest m_navX, BeaverTailSubsystem m_intake, Pnumatics m_pnumatics) {
 
     addCommands(
         new SolenoidOn(m_pnumatics),
         new IntakeOn(m_intake),
-        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.3, AutoDrive.Sensors.GYRO_RIGHT, 22, false), //2
         new AutoDrive(m_driveCommand, m_navX,  0, 0.6, 0  , AutoDrive.Sensors.ENCODER, 6.5, true),    
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.3, AutoDrive.Sensors.GYRO_RIGHT, 10, false), //2
         new AutoDrive(m_driveCommand, m_navX,  0, 0.6, 0  , AutoDrive.Sensors.ENCODER, 4.7, false),   
         new AutoDrive(m_driveCommand, m_navX,  0, 0  , -0.3, AutoDrive.Sensors.GYRO_LEFT, -40, false), //2
         new AutoDrive(m_driveCommand, m_navX,  0, 0.6, 0  , AutoDrive.Sensors.ENCODER, 8, false),     
