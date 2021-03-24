@@ -127,7 +127,7 @@ public boolean Pidturretenabled = false;
     m_chooser.addOption("2021 At Home challenge Path A Blue", m_pathABlue);
     m_chooser.addOption("barrel", m_barrel);
     m_chooser.addOption("Path A Red", m_pathARed);
-    m_chooser.addOption("Path A Red", m_pathABlue);
+    m_chooser.addOption("Path A Blue", m_pathABlue);
     m_chooser.addOption("AUTO SKELETON", m_autoSkeleton);
 
 
@@ -265,15 +265,15 @@ public boolean Pidturretenabled = false;
     
     new JoystickButton(m_operatorController, Button.kStart.value)
     .whenPressed(() -> m_driveCommand.resetEncoders(), m_driveCommand);
-    /*
+    
     new JoystickButton(m_operatorController, Button.kBack.value)
     .whenPressed(() -> m_navX.reset(), m_navX);
-    */
     
+    /*
     new JoystickButton(m_operatorController, Button.kBack.value)
     .whenPressed(() -> m_turretSubsystem.turretRotate(), m_turretSubsystem)
     .whenReleased(() -> m_turretSubsystem.turretStop(), m_turretSubsystem);
-    
+    */
 
     //INDEXER BUTTONS-------------------------------------------------------------------------------------------------------------------
 

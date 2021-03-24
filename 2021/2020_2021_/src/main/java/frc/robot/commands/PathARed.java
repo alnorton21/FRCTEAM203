@@ -40,12 +40,13 @@ public class PathARed extends SequentialCommandGroup {
     addCommands(
         new SolenoidOn(m_pnumatics),
         new IntakeOn(m_intake),
-        new AutoDrive(m_driveCommand, m_navX,  0, 0.6, 0  , AutoDrive.Sensors.ENCODER, 6.5, true),    
-        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.3, AutoDrive.Sensors.GYRO_RIGHT, 10, false), //2
+
+        new AutoDrive(m_driveCommand, m_navX,  0, 0.5, 0  , AutoDrive.Sensors.ENCODER, 6.5, true),    
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.3, AutoDrive.Sensors.GYRO_RIGHT, 12, false), //2
         new AutoDrive(m_driveCommand, m_navX,  0, 0.6, 0  , AutoDrive.Sensors.ENCODER, 4.7, false),   
-        new AutoDrive(m_driveCommand, m_navX,  0, 0  , -0.3, AutoDrive.Sensors.GYRO_LEFT, -40, false), //2
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , -0.3, AutoDrive.Sensors.GYRO_LEFT, -33, false), //2
         new AutoDrive(m_driveCommand, m_navX,  0, 0.6, 0  , AutoDrive.Sensors.ENCODER, 8, false),     
-        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.3, AutoDrive.Sensors.GYRO_RIGHT, -40, false), //2
+        new AutoDrive(m_driveCommand, m_navX,  0, 0  , 0.3, AutoDrive.Sensors.GYRO_RIGHT, -30, false), //2
         new AutoDrive(m_driveCommand, m_navX,  0, 0.6, 0  , AutoDrive.Sensors.ENCODER, 8, false),     
         new AutoDrive(m_driveCommand, m_navX,  0, 0.3, 0  , AutoDrive.Sensors.ENCODER, 6, false),     
         new IntakeOff(m_intake)
