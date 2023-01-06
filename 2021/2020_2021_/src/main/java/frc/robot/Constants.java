@@ -29,7 +29,7 @@ public final class Constants {
     public static int kIndexer = 9;
 
     public static class DriveConstants {
-        public static int kleftFront = 4;
+        public static int kleftFront = 6; //change to 4
         public static int kleftBack = 2; //1
         public static int krightFront = 1;
         public static int krightBack = 3;
